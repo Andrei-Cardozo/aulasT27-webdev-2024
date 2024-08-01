@@ -12,6 +12,6 @@ Neste repositório será colocado todos os arquivos e projetos criados.
 Passos para instalar e configurar o projeto:
 
 ```bash
-git clone https://github.com/usuario/projeto.git
+git clone https://github.com/Andrei-Cardozo/aulasT27-webdev-2024
 cd projeto
 npm install
