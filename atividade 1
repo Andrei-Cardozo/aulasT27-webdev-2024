@@ -1,0 +1,49 @@
+Gitflow: Modelo de Branching para Gerenciamento de Desenvolvimento
+
+Gitflow é um modelo de branching que fornece uma estrutura organizada para o desenvolvimento de software utilizando o sistema de controle de versões Git. Desenvolvido por Vincent Driessen em 2010, o modelo Gitflow é particularmente útil para projetos com ciclos de lançamento regulares e para equipes que precisam de uma abordagem estruturada para gerenciar diferentes versões de código simultaneamente.
+
+Estrutura de Branches
+Branch main (ou master):
+
+Função: Armazena o código que está pronto para produção. A branch main deve refletir o estado atual do produto em produção e estar sempre estável.
+Características: As mudanças são realizadas apenas por meio de merges de outras branches após uma revisão e validação minuciosas.
+Branch develop:
+
+Função: Serve como a linha de base para o desenvolvimento contínuo. A branch develop é onde as novas funcionalidades e correções de bugs são integradas antes de serem preparadas para lançamento.
+Características: Esta branch deve refletir o estado do próximo lançamento do produto e é atualizada regularmente com as alterações das branches de funcionalidades e correções.
+Branches de feature:
+
+Função: Utilizadas para o desenvolvimento de novas funcionalidades ou melhorias.
+Características: Criadas a partir da branch develop, essas branches permitem o desenvolvimento isolado de novos recursos. Após a conclusão, são mescladas de volta na branch develop. As convenções de nomenclatura geralmente seguem o padrão feature/nome-da-funcionalidade.
+Branches de release:
+
+Função: Preparar o código para um novo lançamento de produção.
+Características: Iniciadas a partir da branch develop quando a preparação para um novo lançamento está em andamento. Elas permitem ajustes finais, correções de bugs e aprimoramento da documentação. Após a conclusão, as branches de release são mescladas nas branches main e develop.
+Branches de hotfix:
+
+Função: Corrigir problemas críticos encontrados em produção.
+Características: Criadas a partir da branch main para resolver rapidamente problemas emergenciais. Após a correção, essas branches são mescladas de volta na main e na develop, garantindo que todas as branches estejam atualizadas com a correção.
+Fluxo de Trabalho
+Desenvolvimento de Funcionalidades:
+
+Desenvolvedores criam branches feature a partir da branch develop.
+Trabalham na nova funcionalidade e, uma vez concluída e validada, a branch feature é mesclada de volta na branch develop.
+Preparação para Lançamento:
+
+Quando a branch develop atinge um ponto de estabilidade e está pronta para um lançamento, uma branch release é criada.
+A branch release permite a realização de ajustes finais e correções antes do lançamento. Após a finalização, a branch release é mesclada nas branches main e develop.
+Correções Rápidas:
+
+Caso um problema crítico seja identificado na produção, uma branch hotfix é criada a partir da branch main.
+A correção é aplicada e, após a validação, a branch hotfix é mesclada tanto em main quanto em develop.
+Vantagens e Desvantagens
+Vantagens:
+
+Organização: Fornece uma estrutura clara para gerenciar diferentes tipos de trabalho e estados do código.
+Controle: Melhora o controle sobre o processo de desenvolvimento e lançamento, facilitando a manutenção da estabilidade do produto.
+Qualidade: Permite a realização de testes e revisões rigorosas antes das alterações serem promovidas a produção.
+Desvantagens:
+
+Complexidade: Pode introduzir complexidade adicional, especialmente para projetos menores ou equipes pequenas.
+Sobrecarga: A gestão de múltiplas branches pode aumentar o overhead operacional e a necessidade de coordenação.
+Em resumo, o Gitflow oferece uma abordagem estruturada e eficiente para o gerenciamento de branches em projetos de desenvolvimento de software, favorecendo a organização e a qualidade do produto, mas exigindo uma gestão cuidadosa para evitar sobrecargas desnecessárias.
