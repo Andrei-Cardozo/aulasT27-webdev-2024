@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pratica2</title>
+</head>
+<body>
+
+    <fieldset>
+        <legend>Formulário de Cadastro</legend>
+        <form action="cadastro.php" method="post">
+
+            <div class="componente_nome">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" maxlength="100">
+                <br>
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" name="sobrenome" id="sobrenome" maxlength="100">
+                <br>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email">
+            </div>
+
+            <div class="componente_pessoal">
+                <label for="dataNascimento">Data de Nascimento:</label>
+                <input type="date" name="dataNascimento" id="dataNascimento" min="1920-01-01" max="2024-01-01"> 
+                <br>
+                <label for="sexo">Sexo:</label>
+                <label for="sexo">Masculino</label>
+                <input type="radio" name="sexo" id="sexo" value="M"> 
+                <label for="sexo">Feminino</label>
+                <input type="radio" name="sexo" id="sexo" value="F">     
+            </div>
+
+            <div class="componente_endereco">
+
+                <label for="endereco">Endereço</label>
+                <input type="text" name="endereco" id="endereco" maxlength="200"> 
+                <br>
+                <label for="cep">CEP</label>
+                <input type="text" name="cep" id="cep" maxlength="10"> 
+                <br>
+                <label for="corFavorita">Cor</label>
+                <input type="color" name="corFavorita" id="corFavorita"> 
+                <br>
+                <label for="uf">UF</label>
+                <select name="uf" id="uf">
+                    <option value="Selecione">Selecione...</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                    <option value="DF">DF</option>
+                </select>
+
+            </div>
+
+            <input type="submit" value="Enviar" style="cursor: pointer;">
+            <input type="button" value="Limpar" style="cursor: pointer;">
+        </form> 
+    </fieldset>
+</body>
+</html>

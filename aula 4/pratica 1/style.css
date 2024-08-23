@@ -1,0 +1,32 @@
+div {
+    margin: 1em;
+    background-color: gray;
+}
+
+div.componente_nome {
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+label {
+    margin-left: 3em;
+}
+fieldset {
+    background-color: rgb(219, 217, 213);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+div.componente_endereco {
+    border-radius: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+div.componente_pessoal {
+    border-radius: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+input#corFavorita {
+    cursor:pointer;
+}
+select#uf {
+    cursor: pointer;
+}

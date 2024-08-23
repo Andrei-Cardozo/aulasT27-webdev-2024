@@ -1,27 +1,46 @@
 /* Reset básico para garantir consistência entre navegadores */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilo básico do corpo */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
     padding: 20px;
 }
 
+/* Estilo do cabeçalho */
 header {
-    background: #333;
+    background-color: #2C3E50; /* Verde escuro */
     color: #fff;
-    padding: 10px 0;
-    text-align: center;
+    padding: 10px;
+    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+header .profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #1ABC9C; /* Verde claro */
+    object-fit: cover;
+    position: absolute;
+    top: 25px;
+    left: 80px;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 header h1 {
-    margin-bottom: 10px;
+    margin-top: 140px; /* Espaço para a imagem circular */
+    font-size: 2.5em;
 }
 
 header p {
@@ -29,37 +48,59 @@ header p {
 }
 
 header a {
-    color: #fff;
+    color: #1ABC9C; /* Verde claro */
     text-decoration: none;
 }
 
+header a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo das seções */
 section {
-    margin: 20px 0;
+    margin-bottom: 20px;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 section h2 {
     margin-bottom: 10px;
+    font-size: 2em;
+    color: #2C3E50; /* Verde escuro */
+}
+
+section h3 {
+    margin-top: 20px;
+    font-size: 1.5em;
     color: #333;
 }
 
-section ul {
+ul {
     list-style: disc;
     margin-left: 20px;
 }
 
-section ul li {
+li {
     margin-bottom: 10px;
 }
 
+/* Estilo das linhas de separação */
+hr {
+    border: 0;
+    border-top: 2px solid #BDC3C7; /* Cinza claro */
+    margin: 20px 0;
+}
+
+/* Estilo do rodapé */
 footer {
-    text-align: center;
     padding: 20px;
-    background: #333;
+    text-align: center;
+    background-color: #2C3E50; /* Verde escuro */
     color: #fff;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 footer p {
