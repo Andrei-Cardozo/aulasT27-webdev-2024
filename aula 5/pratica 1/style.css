@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #cccbcb;
+    background-color: #d1d1d1;
     backdrop-filter: blur (8px);
     margin: 0;
     font-family: Arial, sans-serif;
@@ -55,4 +55,15 @@ button:active {
 }
 #enter:hover {
     background-color: rgba(20, 80, 192, 0.6);
+}
+.result-positive {
+    background-color: #d4edda;
+}
+
+.result-negative {
+    background-color: #f8d7da;
+}
+
+.result-zero {
+    background-color: #78797a;
 }
