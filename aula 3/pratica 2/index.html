@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pessoa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Cadastro de Pessoa</h1>
+        <form action="cadastro.php" method="post">
+            <fieldset>
+                <legend>Dados Pessoais</legend>
+                <ul>
+                    <li>
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required maxlength="100">
+                    </li>
+                    <li>
+                        <label for="sobrenome">Sobrenome:</label>
+                        <input type="text" id="sobrenome" name="sobrenome" required maxlength="100">
+                    </li>
+                    <li>
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </li>
+                    <li>
+                        <label for="nascimento">Data de Nascimento:</label>
+                        <input type="date" id="nascimento" name="nascimento" min="1920-01-01" max="2024-01-01">
+                    </li>
+                    <li>
+                        <label>Sexo:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="masculino" name="sexo" value="masculino">
+                            <label for="masculino">Masculino</label>
+
+                            <input type="radio" id="feminino" name="sexo" value="feminino">
+                            <label for="feminino">Feminino</label>
+                        </div>
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>Endereço</legend>
+                <ul>
+                    <li>
+                        <label for="endereco">Endereço:</label>
+                        <input type="text" id="endereco" name="endereco" maxlength="200">
+                    </li>
+                    <li>
+                        <label for="cep">CEP:</label>
+                        <input type="text" id="cep" name="cep" maxlength="10">
+                    </li>
+                    <li>
+                        <label for="estado">Estado (UF):</label>
+                        <select id="estado" name="estado">
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select>
+                    </li>
+                </ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>Outras Informações</legend>
+                <ul>
+                    <li>
+                        <label for="cor">Cor favorita:</label>
+                        <input type="color" id="cor" name="cor">
+                    </li>
+                </ul>
+            </fieldset>
+
+            <div class="form-buttons">
+                <button type="submit">Cadastrar</button>
+                <button type="reset">Limpar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

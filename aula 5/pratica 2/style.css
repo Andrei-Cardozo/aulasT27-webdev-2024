@@ -43,3 +43,21 @@ td {
 tr:hover {
     background-color: #f1f1f1;
 }
+.buttons {
+    margin-top: 20px;
+    position: absolute;
+    margin-left: 137px;
+}
+
+button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
