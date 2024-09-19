@@ -14,4 +14,11 @@
     } else {
         echo "Os valores são iguais";
     }
+
+        //comando de repetição while
+        $status = array('ótimo', 'Muito bom', 'bom');
+
+        foreach ($status as $valor) {
+            echo '$valor <br>';
+        }
 ?>
