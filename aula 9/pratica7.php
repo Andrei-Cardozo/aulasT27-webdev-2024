@@ -39,9 +39,9 @@ $statusNota = verificarAprovacaoPorNota($media);
 $frequencia = calcularFrequencia($faltas);
 $statusFrequencia = verificarAprovacaoPorFrequencia($frequencia);
 
-echo "Média das Notas: " . number_format($media, 2) . "\n";
-echo "Status de Aprovação por Nota: " . $statusNota . "\n";
-echo "Frequência do Aluno: " . number_format($frequencia, 2) . "%\n";
+echo "Média das Notas: " . number_format($media, 2) . "\n" . "<br>";
+echo "Status de Aprovação por Nota: " . $statusNota . "\n" . "<br>";
+echo "Frequência do Aluno: " . number_format($frequencia, 2) . "%\n" . "<br>";
 echo "Status de Aprovação por Frequência: " . $statusFrequencia . "\n";
 
 ?>
