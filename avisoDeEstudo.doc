@@ -1,0 +1,1 @@
+Quando for abrir o localhost para iniciar o xampp, não se deve colocar .com no seguinte link: "localhost.com", pois assim ele não rodará e irá dar erro!
