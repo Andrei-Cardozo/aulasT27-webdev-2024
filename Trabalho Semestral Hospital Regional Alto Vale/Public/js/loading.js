@@ -1,7 +1,7 @@
 // Função que será chamada ao clicar ou tocar na tela
 function showQuestionnaire() {
-    document.getElementById('loading-screen').style.display = 'none'; // Esconde a tela de loading
-    document.getElementById('questionnaire').style.display = 'block'; // Mostra o questionário
+    // Redirecionar para a página do formulário
+    window.location.href = "forms.php"; // Caminho da página do formulário
 }
 
 // Adiciona eventos para detectar clique ou toque
