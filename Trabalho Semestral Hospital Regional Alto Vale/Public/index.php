@@ -11,7 +11,7 @@ $conteudoHTML = <<<HTML
 <body>
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p>Toque na tela e responda nosso formulário anônimo! Sua opinião nos ajuda a melhorar continuamente.</p>
+        <p>Toque na tela e responda nosso formulário anonimamente! Sua opinião nos ajuda a melhorar continuamente.</p>
     </div>
 
     <script src="js/loading.js"></script>
