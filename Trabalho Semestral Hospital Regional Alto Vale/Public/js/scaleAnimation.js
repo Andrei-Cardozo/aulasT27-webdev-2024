@@ -5,7 +5,7 @@ function showScaleNumbers() {
     numbers.forEach((number, index) => {
         setTimeout(() => {
             number.classList.add('visible'); // Adiciona a classe para mostrar o número
-        }, index * 600); // Atraso progressivo para cada número (600 ms entre cada)
+        }, index * 200); // Atraso progressivo para cada número (600 ms entre cada)
     });
 }
 
