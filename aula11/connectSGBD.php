@@ -16,7 +16,7 @@
             }
 
     } catch (Exception $e) {
-        /*Caso ocrra erro */
+        /*Caso ocorra erro */
         echo $e->getMessage();
     }
 ?>
