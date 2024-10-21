@@ -1,6 +1,10 @@
 <?php
 require_once '../src/db.php';
 require_once '../src/perguntas.php';
+require_once '../src/funcoes.php';
+
+//exibir as perguntas cadastradas
+$perguntas = listarPerguntas();
 
 // Obtém a conexão com o banco de dados
 $conn = getConnection();
@@ -29,12 +33,6 @@ if (isset($_POST['delete_pergunta'])) {
 
 // Obtém a lista de perguntas
 $perguntas = $perguntasObj->listarPerguntas();
-
-// Busca todas as respostas no banco de dados
-$sql = "SELECT * FROM respostas";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$respostas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -94,37 +92,6 @@ $respostas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php else: ?>
                     <tr>
                         <td colspan="3">Nenhuma pergunta encontrada.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-        <hr>
-
-        <!-- Tabela de Respostas -->
-        <h2>Respostas das Avaliações</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>ID Pergunta</th>
-                    <th>Avaliação</th>
-                    <th>Feedback</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($respostas)): ?>
-                    <?php foreach ($respostas as $resposta): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($resposta['id']) ?></td>
-                            <td><?= htmlspecialchars($resposta['id_pergunta']) ?></td>
-                            <td><?= htmlspecialchars($resposta['avaliacao']) ?></td>
-                            <td><?= htmlspecialchars($resposta['feedback']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4">Nenhuma resposta encontrada.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

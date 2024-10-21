@@ -1,5 +1,9 @@
 <?php
-$conteudoHTML = <<<HTML
+require_once '../src/funcoes.php'; // Conectar com o Banco de Dados pelo funcoes.php
+
+// Obter as perguntas do banco de dados
+$perguntas = listarPerguntas();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,31 +13,25 @@ $conteudoHTML = <<<HTML
     <link rel="stylesheet" href="css/styleForms.css">
 </head>
 <body>
-
-    <section>
-        <h2>Como você avaliaria a qualidade do atendimento recebido durante sua visita ao Hospital Regional?</h2>
-    </section>
+    <h2>Formulário de Avaliação</h2>
+    
     <form action="thanks.php" method="post">
-        <div id="scale-container">
-            <!-- Escala de avaliação -->
-            <div class="scale-number" style="background-color: #FF8080;">0</div>
-            <div class="scale-number" style="background-color: #FF9999;">1</div>
-            <div class="scale-number" style="background-color: #FFB2B2;">2</div>
-            <div class="scale-number" style="background-color: #FFB2B2;">3</div>
-            <div class="scale-number" style="background-color: #FFCCCC;">4</div>
-            <div class="scale-number" style="background-color: #F2F2F2;">5</div>
-            <div class="scale-number" style="background-color: #FFFFB2;">6</div>
-            <div class="scale-number" style="background-color: #D4FFB2;">7</div>
-            <div class="scale-number" style="background-color: #B2FFB2;">8</div>
-            <div class="scale-number" style="background-color: #B2FFB2;">9</div>
-            <div class="scale-number" style="background-color: #99FF99;">10</div>
-        </div>
-
-        <div class="feedback-area">
-            <textarea placeholder="Feedback adicional (opcional)" rows="4" cols="50"></textarea>
-        </div>
-
-        <button id="submit-button">Enviar Avaliação</button>
+        <?php if (!empty($perguntas)): ?>
+            <?php foreach ($perguntas as $pergunta): ?>
+                <section>
+                    <p><?= htmlspecialchars($pergunta['texto']) ?></p>
+                    <input type="hidden" name="id_pergunta[]" value="<?= $pergunta['id'] ?>">
+                    <label for="avaliacao_<?= $pergunta['id'] ?>">Avaliação (0-10):</label>
+                    <input type="number" name="avaliacao[]" id="avaliacao_<?= $pergunta['id'] ?>" min="0" max="10" required>
+                    <br>
+                    <label for="feedback_<?= $pergunta['id'] ?>">Feedback (opcional):</label>
+                    <textarea name="feedback[]" id="feedback_<?= $pergunta['id'] ?>"></textarea>
+                </section>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Nenhuma pergunta cadastrada no momento.</p>
+        <?php endif; ?>
+        <button type="submit">Enviar Avaliação</button>
     </form>
 
     <footer>
@@ -43,7 +41,3 @@ $conteudoHTML = <<<HTML
     <script src="js/scaleAnimation.js"></script>
 </body>
 </html>
-HTML;
-
-echo $conteudoHTML;
-?>

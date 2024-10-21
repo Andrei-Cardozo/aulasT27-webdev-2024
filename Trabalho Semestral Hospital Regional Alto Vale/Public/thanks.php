@@ -1,3 +1,31 @@
+<?php
+require_once '../src/funcoes.php'; // Inclui o arquivo de funções
+
+$conn = getConnection();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
+    $id_perguntas = $_POST['id_pergunta'];
+    $avaliacoes = $_POST['avaliacao'];
+    $feedbacks = $_POST['feedback'];
+
+    // Insere as respostas no banco de dados
+    for ($i = 0; $i < count($id_perguntas); $i++) {
+        $id_pergunta = $id_perguntas[$i];
+        $avaliacao = $avaliacoes[$i];
+        $feedback = !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
+
+        $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback) VALUES (:id_pergunta, :avaliacao, :feedback)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id_pergunta', $id_pergunta);
+        $stmt->bindParam(':avaliacao', $avaliacao);
+        $stmt->bindParam(':feedback', $feedback);
+        $stmt->execute();
+    }
+
+    echo 'Respostas enviadas com sucesso!';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
