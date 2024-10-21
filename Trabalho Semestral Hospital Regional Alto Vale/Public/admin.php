@@ -41,62 +41,54 @@ $perguntas = $perguntasObj->listarPerguntas();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Administração</title>
-    <link rel="stylesheet" href="../Public/css/styleAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/styleAdmin.css">
 </head>
 <body>
+<!--    Salvar esse código para reutilizar logo mais. Alterar o código daqui para baixo     -->
 
-    <div class="container">
-        <h1>Painel de Administração</h1>
+<div class="sidebar">
+        <div class="container">
+        <div class="logo">
+            <!-- Colocar admin aqui -->
+        </div>
 
-        <!-- Formulário para Adicionar Pergunta -->
-        <h2>Adicionar Nova Pergunta</h2>
-        <form method="POST" action="">
-            <input type="text" name="nova_pergunta" placeholder="Digite a nova pergunta" required>
-            <button type="submit" name="add_pergunta">Adicionar</button>
-        </form>
+        <ul class="menu">
+            <li><a href="">
+                <i class="fas fa-home"></i>
+                <span>Menu</span>
+                </span>
+            </a></li>
 
-        <hr>
+            <li><a href="">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notificações</span>
+            </a></li>
 
-        <!-- Tabela de Perguntas -->
-        <h2>Gerenciar Perguntas</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Pergunta</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($perguntas) && is_array($perguntas)) : ?>
-                    <?php foreach ($perguntas as $pergunta): ?>
-                    <tr>
-                        <td><?= $pergunta['id'] ?></td>
-                        <td><?= $pergunta['texto'] ?></td>
-                        <td>
-                            <!-- Formulário para Editar Pergunta -->
-                            <form method="POST" action="" style="display: inline-block;">
-                                <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
-                                <input type="text" name="texto_editado" value="<?= $pergunta['texto'] ?>" required>
-                                <button type="submit" name="edit_pergunta">Editar</button>
-                            </form>
+            <li><a href="">
+                <i class="fa-solid fa-gear"></i>
+                <span>Configurações</span>
+            </a></li>
+            
+            <li><a href="">
+                <i class="fas fa-globe"></i>
+                <span>Site HRAV</span>
+            </a></li>
 
-                            <!-- Formulário para Excluir Pergunta -->
-                            <form method="POST" action="" style="display: inline-block;">
-                                <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
-                                <button type="submit" name="delete_pergunta" onclick="return confirm('Tem certeza que deseja excluir esta pergunta?')">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="3">Nenhuma pergunta encontrada.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+        </ul>
     </div>
+
+    <div class="logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="link-text">Sair</span>
+    </div>
+
+    </div>
+    <div class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <script src="js/admin.js"></script>
 
 </body>
 </html>

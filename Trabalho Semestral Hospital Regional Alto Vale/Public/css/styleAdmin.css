@@ -1,62 +1,115 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    background-image: url(../images/BackgroundHospital.jpg);
+    background-size: 100% 100%;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.sidebar{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-gap: 8rem;
+    background: rgba(0, 0, 0, .4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+    backdrop-filter: blur(5.6px);
+    -webkit-backdrop-filter: blur(5.6px);
+    padding: 2rem 0;
+    overflow: hidden;
+    transition: width .3s ease-in-out;
+}
+.sidebar.active{
+    width: 5%;
 }
 
-h1, h2 {
-    text-align: center;
-    color: #333;
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
 }
-
-form {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    padding: 10px;
-    width: 70%;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #28a745;
-    border: none;
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
     color: white;
-    border-radius: 4px;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 15px;
+}
+
+.menu li a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem 10%;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.menu li a:hover{
+    background: rgba(255, 255, 255, .3);
+}
+.menu li a i{
+    font-size: 22px;
+}
+
+.logout{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
     cursor: pointer;
+    font-size: 18px;
+    padding: 0 10%;
+    color: white;
+}
+.sidebar.active .menu li a span,
+.sidebar.active .logout span{
+    display: none;
 }
 
-button:hover {
-    background-color: #218838;
+.sidebar.active .menu li a,
+.sidebar.active .logout{
+    justify-content: center;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.menu-btn{
+    padding: 2rem;
+    font-size: 22px;
+}
+.menu-btn i{
+    cursor: pointer;
+    color: white;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+@media (max-width: 960px){
+    .sidebar{
+        width: 30%;
+    }
+    .sidebar.active{
+        width: 10%;
+    }
 }
-
-th, td {
-    padding: 10px;
-    text-align: center;
-}
-
-th {
-    background-color: #f2f2f2;
+@media (max-width: 780px){
+    .sidebar{
+        width: 50%;
+    }
+    .sidebar.active{
+        width: 20%;
+    }
 }
