@@ -73,10 +73,22 @@ body{
     display: flex;
     align-items: center;
     gap: .5rem;
-    cursor: pointer;
     font-size: 18px;
     padding: 0 10%;
     color: white;
+}
+.logout a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem 10%;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.logout a:hover{
+    background-color: rgba(255, 255, 255, .3);
+    cursor: pointer;
 }
 .sidebar.active .menu li a span,
 .sidebar.active .logout span{
@@ -89,12 +101,96 @@ body{
 }
 
 .menu-btn{
-    padding: 2rem;
+    margin-top: -1px;
+    margin-bottom: 605px;
+    margin-left: 5px;
+    margin-right: 5px;
     font-size: 22px;
 }
 .menu-btn i{
     cursor: pointer;
     color: white;
+    padding: 5px;
+    margin: 0;
+}
+
+.container-box-btns {
+    display: flex;
+    justify-content: space-around; /* Centraliza horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    position: relative; /* Permite manipulação da posição */
+    margin-top: 150px; /* Ajusta a posição para descer mais na página */
+}
+
+/* Caso precise de ajustes individuais nas caixas */
+.box-tablet, .box-quest, .box-answers {
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    background-color: black;
+    border-radius: 5px 15px 5px 15px;
+    background: linear-gradient(to right, #002244, #0056a3); /* Gradiente escuro */
+    position: relative; /* Para que o link possa ocupar todo o espaço */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Garante que nada "exceda" o contêiner */
+}
+
+.box-tablet:hover, .box-quest:hover, .box-answers:hover {
+    transform: scale(1.1);
+    background-size: 200% 100%; /* Aumenta o tamanho do fundo para permitir a animação */
+    animation: gradient-animation 0.5s forwards; /* Inicia a animação */
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 100% 0; /* Começa à direita */
+    }
+    100% {
+        background-position: 0% 0; /* Termina à esquerda */
+    }
+}
+
+/* Ajustar o link para ocupar todo o espaço da caixa */
+.box-tablet a, .box-quest a {
+    width: 100%; /* Ocupa 100% da largura do contêiner */
+    height: 100%; /* Ocupa 100% da altura do contêiner */
+    display: flex; /* Para que o botão fique centralizado */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.box-answers a {
+    height: 100%;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+/* Para que o botão se posicione corretamente */
+.tablet-btn button, .quest-btn button, .answer-btn button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-size: 10px;
+    transition: transform 0.3s ease; /* Transições suaves para o botão */
+    color: white;
+}
+
+.tablet-btn button, .quest-btn button, .answer-btn button:hover {
+    cursor: pointer;
+}
+
+/* Ajusta as propriedades do .quest-btn e .answer-btn */
+.quest-btn,
+.answer-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 960px){
@@ -112,4 +208,4 @@ body{
     .sidebar.active{
         width: 20%;
     }
-}
+} 

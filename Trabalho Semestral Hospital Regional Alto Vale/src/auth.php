@@ -1,40 +1,34 @@
 <?php
-$conteudoHTML = <<<HTML
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticação</title>
-    <link rel="stylesheet" href="../Public/css/styleAuth.css">
-</head>
-<body>
-<div class="wrapper">
-        <div class="container">
-            <form action="login.php" method="post">
-                <h1>Entrar</h1>
-                <div class="input-box">
-                    <input type="text" placeholder="Nome de usuário" required>
-                    <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Senha" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox">Lembrar de mim</label>
-                    <a href="#">Não lembra a senha?</a>
-                </div>
-                <button type="submit" class="btn">Entrar</button>
-                <div class="register-link">
-                    <p>Não tem uma conta? <a href="#">Crie uma conta aqui!</a> </p>
-                </div>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
-HTML;
+// Iniciar a sessão
+session_start();
 
-echo $conteudoHTML;
-?>
+// Verificar se o formulário foi submetido
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Definir as credenciais corretas
+    $correct_username = 'admin';
+    $correct_password = 'adminHRAV!';
+
+    // Obter o nome de usuário e a senha do formulário
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Verificar se as credenciais estão corretas
+    if ($username === $correct_username && $password === $correct_password) {
+        // Configurar a sessão de login
+        $_SESSION['logged_in'] = true;
+        $_SESSION['last_activity'] = time(); // Iniciar o tempo da sessão
+
+        // Redirecionar para admin.php
+        header('Location: ../public/admin.php');
+        exit();
+    } else {
+        // Se as credenciais forem incorretas
+        $error = urlencode('Credenciais incorretas. Tente novamente.');
+        header("Location: ../public/login.php?error=$error");
+        exit();
+    }
+} else {
+    // Se o acesso for direto a auth.php, redirecionar para a página de login
+    header('Location: ../public/login.php');
+    exit();
+}

@@ -1,7 +1,7 @@
 <!-- codigo de gerenciamento de perguntas -->
 
 <div class="container">
-        <h1>Painel de Administração</h1>
+        <h1>Painel de Gerenciamento de Perguntas</h1>
 
         <!-- Formulário para Adicionar Pergunta -->
         <h2>Adicionar Nova Pergunta</h2>
