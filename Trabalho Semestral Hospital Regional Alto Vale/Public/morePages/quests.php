@@ -120,45 +120,54 @@ if (empty($perguntasInativas)) {
 
     <hr>
 
-    <!-- Tabela de Perguntas -->
     <h2>Perguntas Ativas</h2>
-    <table border="1">
-        <thead>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Pergunta</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($perguntasAtivas) && is_array($perguntasAtivas)) : ?>
+            <?php foreach ($perguntasAtivas as $pergunta): ?>
             <tr>
-                <th>ID</th>
-                <th>Pergunta</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($perguntasAtivas) && is_array($perguntasAtivas)) : ?>
-                <?php foreach ($perguntasAtivas as $pergunta): ?>
-                <tr>
-                    <td><?= $pergunta['id'] ?></td>
-                    <td><?= $pergunta['texto'] ?></td>
-                    <td>
-                        <!-- Formulário para Editar Pergunta -->
-                        <form method="POST" action="" style="display: inline-block;">
-                            <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
-                            <input type="text" name="texto_editado" value="<?= $pergunta['texto'] ?>" required>
-                            <button type="submit" name="edit_pergunta">Editar</button>
-                        </form>
+                <td><?= $pergunta['id'] ?></td>
+                <td><?= $pergunta['texto'] ?></td>
+                <td>
+                    <!-- Botão para abrir o modal de edição -->
+                    <button onclick="abrirModal('<?= $pergunta['id'] ?>', '<?= $pergunta['texto'] ?>')" class="btn btn-success">Editar</button>
 
-                        <!-- Formulário para Excluir Pergunta -->
-                        <form method="POST" action="" style="display: inline-block;">
-                            <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
-                            <button type="submit" name="delete_pergunta" onclick="return confirm('Tem certeza que deseja inativar esta pergunta?')">Inativar</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">Nenhuma pergunta encontrada.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+                    <!-- Formulário para Inativar Pergunta -->
+                    <form method="POST" action="" style="display: inline-block;">
+                        <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
+                        <button type="submit" name="delete_pergunta" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja inativar esta pergunta?')">Inativar</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">Nenhuma pergunta encontrada.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+<!-- Modal de edição de pergunta -->
+<div id="modalEditar" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Editar Pergunta</h2>
+        <form method="POST" id="formEditarPergunta" action="">
+            <input type="hidden" id="idPergunta" name="id" value="">
+            <label for="textoPergunta">Pergunta:</label>
+            <input type="text" id="textoPergunta" name="texto_editado" required>
+            <button type="submit" name="edit_pergunta" class="btn btn-success">Salvar</button>
+        </form>
+    </div>
+</div>
 
     <h2>Perguntas Inativas</h2>
     <table>
@@ -179,7 +188,7 @@ if (empty($perguntasInativas)) {
                     </form>
                     <form method="POST" style="display: inline;">
                         <input type="hidden" name="id" value="<?php echo $pergunta['id']; ?>">
-                        <button type="submit" name="excluir_pergunta" onclick="return confirm('Tem certeza de que deseja excluir esta pergunta permanentemente?');">Excluir Permanentemente</button>
+                        <button type="submit" name="excluir_pergunta" class="btn btn-danger" onclick="return confirm('Tem certeza de que deseja excluir esta pergunta permanentemente?');">Excluir Permanentemente</button>
                     </form>
                 </td>
             </tr>
@@ -194,13 +203,13 @@ if (empty($perguntasInativas)) {
         <!-- Adicionar Botões para Ações em Massa -->
     <h2>Ações em Massa</h2>
     <form method="POST" action="" style="display: inline;">
-        <button type="submit" name="inativar_todas_perguntas" onclick="return confirm('Tem certeza que deseja inativar todas as perguntas ativas?');">Inativar Todas as Perguntas</button>
+        <button type="submit" name="inativar_todas_perguntas" class="btn btn-alert" onclick="return confirm('Tem certeza que deseja inativar todas as perguntas ativas?');">Inativar Todas as Perguntas</button>
     </form>
 
     <form method="POST" action="" style="display: inline;">
-        <button type="submit" name="excluir_todas_perguntas" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todas as Perguntas Inativas</button>
+        <button type="submit" name="excluir_todas_perguntas" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todas as Perguntas Inativas</button>
     </form>
 </div>
-
+<script src="../../public/js/quests.js"></script>
 </body>
 </html>

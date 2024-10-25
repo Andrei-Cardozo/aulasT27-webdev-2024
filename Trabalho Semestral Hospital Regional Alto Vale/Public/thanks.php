@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     <script>
         // Função que redireciona para index.php após 2 segundos
         setTimeout(function() {
-            window.location.href = 'index.php';
+            window.location.href = 'loading.php';
         }, 2500); // 2500 milissegundos = 2,5 segundos
     </script>
 </head>

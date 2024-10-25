@@ -123,7 +123,7 @@ body{
 }
 
 /* Caso precise de ajustes individuais nas caixas */
-.box-tablet, .box-quest, .box-answers {
+.box-tablet, .box-quest, .box-answers, .box-localmap {
     width: 130px;
     height: 50px;
     display: flex;
@@ -138,7 +138,7 @@ body{
     overflow: hidden; /* Garante que nada "exceda" o contêiner */
 }
 
-.box-tablet:hover, .box-quest:hover, .box-answers:hover {
+.box-tablet:hover, .box-quest:hover, .box-answers:hover, .box-localmap:hover {
     transform: scale(1.1);
     background-size: 200% 100%; /* Aumenta o tamanho do fundo para permitir a animação */
     animation: gradient-animation 0.5s forwards; /* Inicia a animação */
@@ -154,7 +154,7 @@ body{
 }
 
 /* Ajustar o link para ocupar todo o espaço da caixa */
-.box-tablet a, .box-quest a {
+.box-tablet a, .box-quest a, .box-localmap a {
     width: 100%; /* Ocupa 100% da largura do contêiner */
     height: 100%; /* Ocupa 100% da altura do contêiner */
     display: flex; /* Para que o botão fique centralizado */
@@ -170,7 +170,7 @@ body{
 }
 
 /* Para que o botão se posicione corretamente */
-.tablet-btn button, .quest-btn button, .answer-btn button {
+.tablet-btn button, .quest-btn button, .answer-btn button, .localmap-btn button {
     width: 100%;
     height: 100%;
     background: none;
@@ -180,7 +180,7 @@ body{
     color: white;
 }
 
-.tablet-btn button, .quest-btn button, .answer-btn button:hover {
+.tablet-btn button:hover, .quest-btn button:hover, .answer-btn button:hover, .localmap-btn button:hover {
     cursor: pointer;
 }
 

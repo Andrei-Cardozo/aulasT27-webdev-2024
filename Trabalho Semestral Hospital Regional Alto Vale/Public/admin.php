@@ -122,22 +122,29 @@ $_SESSION['last_activity'] = time();
 
     <div class="container-box-btns">
 
+        <div class="box-localmap">
+            <a href="morePages/setores.php" class="localmap-btn">
+                <button>Cadastramento de Setores</button>
+            </a>
+        </div>
+
         <div class="box-tablet">
-            <a href="morePages/tablets.php" class="tablet-btn"> <!--colocar link aqui -->
-                <button>Tablets</button>
+            <a href="morePages/tablets.php" class="tablet-btn"> 
+                <button>Gerenciar Tablets</button>
             </a>
         </div>
 
         <div class="box-quest">
-            <a href="morePages/quests.php" class="quest-btn"> <!--colocar link aqui -->
+            <a href="morePages/quests.php" class="quest-btn"> 
                 <button>Gerenciar Perguntas</button>
         </div>
 
         <div class="box-answers">
-            <a href="morePages/answers.php" class="answer-btn"><!--colocar link aqui -->
+            <a href="morePages/answers.php" class="answer-btn">
                 <button>Dashboards das Respostas</button>
             </div>
         </div>
+
 
     </div>
     
