@@ -118,6 +118,7 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
                 </li>
             <?php endforeach; ?>
         </ul>
+        <hr>
 
         <!-- Setores Inativos -->
         <h2>Setores Inativos</h2>
@@ -129,4 +130,3 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
     </div>
 </body>
 </html>
-
