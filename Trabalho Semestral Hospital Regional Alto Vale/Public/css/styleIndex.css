@@ -1,0 +1,124 @@
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    background-image: url(../images/BackgroundHospital.jpg);
+    background-size: cover;
+    position: relative;
+}
+
+body::before{
+    background-image: url(../images/BackgroundHospital.jpg);
+    filter: brightness(0.7); 
+    z-index: 1; 
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+}
+
+.container-box-btns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.box-preconftablet, .box-admin {
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    background-color: black;
+    border-radius: 5px 15px 5px 15px;
+    background: linear-gradient(to right, #002244, #0056a3);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    font-family: 'ClarendonRegular', sans-serif;
+}
+
+.box-preconftablet:hover, .box-admin:hover {
+    transform: scale(1.1);
+    background-size: 200% 100%;
+    animation: gradient-animation 0.5s forwards;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0% 0;
+    }
+}
+
+.box-preconftablet a, .box-admin a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'ClarendonRegular', sans-serif;
+}
+
+.preconftablet-btn button, .admin-btn button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-size: 10px;
+    transition: transform 0.3s ease;
+    color: white;
+    font-family: 'ClarendonRegular', sans-serif;
+    font-size: large;
+}
+
+.preconftablet-btn button:hover, .admin-btn button:hover {
+    cursor: pointer;
+}
+
+.preconftablet-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 960px){
+    .sidebar{
+        width: 30%;
+    }
+    .sidebar.active{
+        width: 10%;
+    }
+}
+@media (max-width: 780px){
+    .sidebar{
+        width: 50%;
+    }
+    .sidebar.active{
+        width: 20%;
+    }
+}

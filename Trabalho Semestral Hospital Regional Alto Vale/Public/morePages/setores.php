@@ -97,14 +97,6 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
 
         <hr>
 
-        <!-- Botões de Ações em Massa -->
-        <form method="post">
-            <button type="submit" name="inativar_todos_setores">Inativar Todos os Setores</button>
-            <button type="submit" name="excluir_inativos_setores" <?php echo empty($setores_inativos) ? 'disabled' : ''; ?>>Excluir Setores Inativos</button>
-        </form>
-
-        <hr>
-
         <!-- Setores Ativos -->
         <h2>Setores Ativos</h2>
         <ul>
@@ -128,12 +120,20 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
                 <li><?php echo htmlspecialchars($setor['nome']); ?></li>
             <?php endforeach; ?>
         </ul>
+
+                <!-- Botões de Ações em Massa -->
+                <form method="post">
+            <button type="submit" name="inativar_todos_setores">Inativar Todos os Setores</button>
+            <button type="submit" name="excluir_inativos_setores" <?php echo empty($setores_inativos) ? 'disabled' : ''; ?>>Excluir Setores Inativos</button>
+        </form>
+
+        
     </div>
 
     <div class="sidebar">
         <div class="containerSidebar">
             <div class="logo">
-                <!-- Colocar admin aqui -->
+                <!-- Colocar admin aqui --> <!-- alterar icones -->
             </div>
 
         <ul class="menu">
@@ -145,27 +145,26 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
 
             <li><a href="">
                 <i class="fa-solid fa-bell"></i>
-                <span>Notificações</span>
+                <span>Gerenciar Setores</span>
             </a></li>
 
             <li><a href="">
                 <i class="fa-solid fa-gear"></i>
-                <span>Configurações</span>
+                <span>Gerenciar Tablets</span>
             </a></li>
             
-            <li><a href="https://www.hrav.com.br/">
+            <li><a href="">
                 <i class="fas fa-globe"></i>
-                <span>Site HRAV</span>  
+                <span>Gerenciar Perguntas</span>  
+            </a></li>
+
+            <li><a href="">
+                <i class=""></i>
+                <span>Dashboards das Respostas</span>
             </a></li>
 
         </ul>
     </div>
 
-    <div class="logout">
-        <a href="../src/logout.php">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="link-text">Sair</span>
-        </a>
-    </div>
 </body>
 </html>

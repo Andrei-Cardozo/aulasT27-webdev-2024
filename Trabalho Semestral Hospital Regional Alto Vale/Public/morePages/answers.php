@@ -50,6 +50,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
     <title>Dashboard de Respostas</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../../public/css/styleAnswers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Estilos globais */
         body {

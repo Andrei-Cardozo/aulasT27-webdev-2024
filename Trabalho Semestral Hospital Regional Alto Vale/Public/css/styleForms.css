@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +16,7 @@ body {
     height: 50vh;
     text-align: center;
     flex-direction: column;
+    font-family: 'ClarendonRegular', sans-serif;
 }
 
 section, h2, div.feedback-area, button#submit-button {

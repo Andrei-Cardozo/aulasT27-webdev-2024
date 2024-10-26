@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +17,7 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
+    font-family: 'ClarendonRegular';
 }
 
 h1, p {

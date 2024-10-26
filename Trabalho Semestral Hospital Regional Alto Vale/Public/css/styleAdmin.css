@@ -1,183 +1,227 @@
-*{
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    height: 100vh;
-    display: flex;
-    background-image: url(../images/BackgroundHospital.jpg);
-    background-size: 100% 100%;
+.logoHRAV{
+    width: 50px;
+    height: auto;
+    margin-left: 1rem;
+    margin-top: 6px;
 }
-
-.sidebar{
-    width: 15%;
-    height: 100%;
+.navbar {
+    width: 80%; /* Ajusta a largura para 80% da tela */
+    max-width: 1200px; /* Limita a largura máxima para 1200px */
+    height: 60px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    grid-gap: 8rem;
     background: rgba(0, 0, 0, .4);
     box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
     backdrop-filter: blur(5.6px);
     -webkit-backdrop-filter: blur(5.6px);
-    padding: 2rem 0;
-    overflow: hidden;
-    transition: width .3s ease-in-out;
-}
-.sidebar.active{
-    width: 5%;
+    padding: 0 2rem;
+    transition: height .3s ease-in-out;
+    font-family: 'ClarendonRegular', sans-serif;
+    position: fixed;
+    top: 20px; /* Distância do topo do navegador */
+    left: 50%; /* Centraliza a navbar */
+    transform: translateX(-50%); /* Centraliza a navbar em relação ao seu próprio tamanho */
+    z-index: 1000;
+    border-radius: 45px; /* Bordas arredondadas */
 }
 
-.container{
+body {
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 5rem;
+    background-image: url(../images/BackgroundHospital.jpg);
+    background-size: 100% 100%;
+    padding-top: 20px; /* Adiciona um espaço no topo para a navbar */
 }
-.logo{
+
+.container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 40px;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2rem;
+}
+.container-box-btns {
+    flex: 1; /* Permite que esta seção ocupe espaço disponível */
+}
+.sidebar {
+    width: 300px; /* Largura da sidebar */
+    margin-right: 20px; /* Espaço entre a sidebar e a borda direita */
+    padding: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+    border-radius: 12px 12px 12px 12px; /* Bordas arredondadas */
+    background: linear-gradient(to bottom, #002244, #0056a3); /* Cor de fundo da sidebar */
     color: white;
+    position: fixed; /* Fixar a posição da sidebar */
+    top: 150px; /* Ajusta a altura da posição */
+    right: 20px; /* Define a distância da borda direita */
+    font-family: 'ClarendonRegular', sans-serif;
 }
 
-.menu{
+.feedback-container {
+    margin-top: 0; /* Remove margens superiores */
+}
+table {
+    width: 100%; /* Tabela ocupa toda a largura disponível */
+    border-collapse: collapse; /* Remove espaços entre bordas */
+}
+
+th, td {
+    border: 1px solid #ccc; /* Borda das células */
+    padding: 8px; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto à esquerda */
+}
+
+h2 {
+    font-size: 1.5em; /* Tamanho do título */
+    margin-bottom: 10px; /* Margem abaixo do título */
+}
+
+.logo {
+    font-size: 24px;
+    color: white;
+    text-transform: uppercase;
+    margin-right: auto;
+}
+
+.menu {
     list-style: none;
     display: flex;
-    flex-direction: column;
     gap: 2rem;
-    padding: 0 15px;
+    justify-content: center;
+    flex: 1;
 }
 
-.menu li a{
+.menu li a {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: .5rem;
-    font-size: 18px;
+    gap: 0.5rem;
+    font-size: 16px;
     color: white;
-    border-radius: 15px;
-    padding: 1rem 10%;
-    text-transform: uppercase;
-    transition: all .3s ease-in-out;
+    padding: 1rem;
+    transition: background .3s ease;
+    border-radius: 8px;
 }
-.menu li a:hover{
+
+.menu li a:hover {
     background: rgba(255, 255, 255, .3);
 }
-.menu li a i{
-    font-size: 22px;
+
+.menu li a i {
+    font-size: 20px;
 }
 
-.logout{
+
+.logout {
     display: flex;
     align-items: center;
-    gap: .5rem;
-    font-size: 18px;
-    padding: 0 10%;
+    gap: 0.5rem;
+    font-size: 16px;
     color: white;
+    margin-left: auto;
 }
-.logout a{
+
+.logout a {
     text-decoration: none;
-    list-style: none;
     color: white;
-    border-radius: 15px;
-    padding: 1rem 10%;
-    text-transform: uppercase;
-    transition: all .3s ease-in-out;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color .3s ease;
 }
-.logout a:hover{
+
+.logout a:hover {
     background-color: rgba(255, 255, 255, .3);
-    cursor: pointer;
 }
-.sidebar.active .menu li a span,
-.sidebar.active .logout span{
+
+.navbar.active .menu li a span,
+.navbar.active .logout span {
     display: none;
 }
 
-.sidebar.active .menu li a,
-.sidebar.active .logout{
-    justify-content: center;
-}
-
-.menu-btn{
-    margin-top: -1px;
-    margin-bottom: 605px;
-    margin-left: 5px;
-    margin-right: 5px;
+.menu-btn {
     font-size: 22px;
-}
-.menu-btn i{
     cursor: pointer;
     color: white;
-    padding: 5px;
-    margin: 0;
+    display: none; /* Somente mostraremos em telas menores */
 }
 
 .container-box-btns {
     display: flex;
-    justify-content: space-around; /* Centraliza horizontalmente */
-    align-items: center; /* Alinha verticalmente */
-    position: relative; /* Permite manipulação da posição */
-    margin-top: 150px; /* Ajusta a posição para descer mais na página */
+    flex-direction: column; /* Muda a direção dos itens para coluna */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    position: fixed; /* Fixa a posição no lado esquerdo da tela */
+    top: 150px; /* Ajusta a altura da posição */
+    left: 20px; /* Define a distância da borda esquerda */
+    gap: 20px; /* Espaço entre os botões */
 }
-
-/* Caso precise de ajustes individuais nas caixas */
+/* Estilos das caixas para manter o design e o efeito hover */
 .box-tablet, .box-quest, .box-answers, .box-localmap {
-    width: 130px;
-    height: 50px;
+    width: 200px; /* Largura da caixa */
+    height: 50px; /* Altura da caixa */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px;
     background-color: black;
     border-radius: 5px 15px 5px 15px;
-    background: linear-gradient(to right, #002244, #0056a3); /* Gradiente escuro */
-    position: relative; /* Para que o link possa ocupar todo o espaço */
+    background: linear-gradient(to right, #002244, #0056a3); /* Gradiente */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    overflow: hidden; /* Garante que nada "exceda" o contêiner */
+    overflow: hidden;
+    font-family: 'ClarendonRegular', sans-serif;
+    font-size: medium;
+    transition: transform 0.3s ease; /* Suavidade na transição */
 }
 
 .box-tablet:hover, .box-quest:hover, .box-answers:hover, .box-localmap:hover {
     transform: scale(1.1);
-    background-size: 200% 100%; /* Aumenta o tamanho do fundo para permitir a animação */
-    animation: gradient-animation 0.5s forwards; /* Inicia a animação */
+    background-size: 200% 100%;
+    animation: gradient-animation 0.5s forwards;
 }
 
-@keyframes gradient-animation {
-    0% {
-        background-position: 100% 0; /* Começa à direita */
-    }
-    100% {
-        background-position: 0% 0; /* Termina à esquerda */
-    }
-}
-
-/* Ajustar o link para ocupar todo o espaço da caixa */
-.box-tablet a, .box-quest a, .box-localmap a {
-    width: 100%; /* Ocupa 100% da largura do contêiner */
-    height: 100%; /* Ocupa 100% da altura do contêiner */
-    display: flex; /* Para que o botão fique centralizado */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    text-decoration: none; /* Remove o sublinhado do link */
-}
-
-.box-answers a {
+/* Configuração para que o link ocupe toda a caixa */
+.box-tablet a, .box-quest a, .box-localmap a, .box-answers a {
+    width: 100%;
     height: 100%;
-    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
 }
 
-/* Para que o botão se posicione corretamente */
+/* Estilização do botão */
 .tablet-btn button, .quest-btn button, .answer-btn button, .localmap-btn button {
     width: 100%;
     height: 100%;
     background: none;
     border: none;
-    font-size: 10px;
-    transition: transform 0.3s ease; /* Transições suaves para o botão */
     color: white;
+    font-family: 'ClarendonRegular', sans-serif;
+    display: flex; /* Garante que o texto dentro do botão seja centralizado */
+    align-items: center;
+    justify-content: center;
+    font-size: medium; /* Reduz um pouco o tamanho da fonte */
+    line-height: 1; /* Ajusta o espaçamento entre linhas */
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o texto que excede o botão */
+    text-overflow: ellipsis; /* Exibe '...' se o texto exceder */
+}
+
+.box-answers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Garante que o texto esteja alinhado ao centro */
+
 }
 
 .tablet-btn button:hover, .quest-btn button:hover, .answer-btn button:hover, .localmap-btn button:hover {
@@ -193,19 +237,33 @@ body{
     justify-content: center;
 }
 
-@media (max-width: 960px){
-    .sidebar{
-        width: 30%;
+
+@media (max-width: 960px) {
+    .menu-btn {
+        display: block;
     }
-    .sidebar.active{
-        width: 10%;
+
+    .menu {
+        display: none;
+    }
+
+    .navbar.active .menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        align-items: center;
     }
 }
-@media (max-width: 780px){
-    .sidebar{
+
+@media (max-width: 780px) {
+    .sidebar {
         width: 50%;
     }
-    .sidebar.active{
+
+    .sidebar.active {
         width: 20%;
     }
-} 
+}
