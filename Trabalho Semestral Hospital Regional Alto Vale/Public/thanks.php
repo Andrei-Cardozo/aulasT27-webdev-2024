@@ -7,6 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     $id_perguntas = $_POST['id_pergunta'];
     $avaliacoes = $_POST['avaliacao'];
     $feedbacks = $_POST['feedback'];
+    
+    // Captura do setor_id
+    $setor_id = isset($_POST['setor_id']) ? (int)$_POST['setor_id'] : null;
+
+    // Verifica se o setor_id é válido
+    if ($setor_id === null || $setor_id <= 0) {
+        die("Setor ID inválido.");
+    }
 
     // Insere as respostas no banco de dados
     for ($i = 0; $i < count($id_perguntas); $i++) {
@@ -14,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
         $avaliacao = $avaliacoes[$i];
         $feedback = !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
 
-        $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback) VALUES (:id_pergunta, :avaliacao, :feedback)';
+        $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback, setor_id) VALUES (:id_pergunta, :avaliacao, :feedback, :setor_id)';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_pergunta', $id_pergunta);
         $stmt->bindParam(':avaliacao', $avaliacao);
         $stmt->bindParam(':feedback', $feedback);
+        $stmt->bindParam(':setor_id', $setor_id); // Adicionando a vinculação do setor_id
         $stmt->execute();
     }
 

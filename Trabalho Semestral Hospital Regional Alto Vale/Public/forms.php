@@ -3,6 +3,19 @@ require_once '../src/funcoes.php'; // Conectar com o Banco de Dados pelo funcoes
 
 // Obter as perguntas do banco de dados
 $perguntas = listarPerguntas();
+
+// Obter os setores do banco de dados
+$setores = listarSetores(); // Função para listar setores
+
+// Captura o setor_id da sessão
+session_start();
+$setor_id = $_SESSION['setor_id'] ?? null;
+
+if ($setor_id === null) {
+    // Redirecionar se setor_id não estiver definido
+    header("Location: preConfSetTablet.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,6 +29,8 @@ $perguntas = listarPerguntas();
     <h2>Formulário de Avaliação</h2>
     
     <form action="thanks.php" method="post">
+        <input type="hidden" name="setor_id" value="<?= $setor_id ?>"> <!-- Campo oculto para setor_id -->
+
         <?php if (!empty($perguntas)): ?>
             <?php foreach ($perguntas as $pergunta): ?>
                 <section>

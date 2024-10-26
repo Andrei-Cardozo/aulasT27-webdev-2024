@@ -4,6 +4,10 @@ require_once '../../src/funcoes.php';
 // Conecta ao banco de dados
 $conn = getConnection();
 
+if (!$conn) {
+    die("Erro ao conectar com o banco de dados.");
+}
+
 // Lida com a adição de um novo tablet
 if (isset($_POST['add_tablet'])) {
     $nomeTablet = $_POST['nome_tablet'];
@@ -34,38 +38,40 @@ if (isset($_POST['delete_tablet'])) {
     // Redireciona para evitar reenvio do formulário
     echo "<script>window.location.href = 'tablets.php';</script>";
     exit();
+}
 
-    // Inativar todos os tablets
+// Inativar todos os tablets
 if (isset($_POST['inativar_todos_tablets'])) {
-    $query = "UPDATE tablets SET ativo = false WHERE ativo = true";
-    pg_query($conexao, $query);
-    echo "Todos os tablets foram inativados.";
+    $sqlInativarTodos = "UPDATE tablets SET status = 'inativo' WHERE status = 'ativo'";
+    if ($conn->query($sqlInativarTodos)) {
+        echo "<script>alert('Todos os tablets foram inativados.');</script>";
+    } else {
+        echo "<script>alert('Erro ao inativar tablets.');</script>";
+    }
+    echo "<script>window.location.href = 'tablets.php';</script>";
+    exit();
 }
 
 // Excluir permanentemente tablets inativos
 if (isset($_POST['excluir_inativos_tablets'])) {
-    $query = "DELETE FROM tablets WHERE ativo = false";
-    pg_query($conexao, $query);
-    echo "Tablets inativos excluídos permanentemente.";
+    $sqlExcluirInativos = "DELETE FROM tablets WHERE status = 'inativo'";
+    if ($conn->query($sqlExcluirInativos)) {
+        echo "<script>alert('Tablets inativos excluídos permanentemente.');</script>";
+    } else {
+        echo "<script>alert('Erro ao excluir tablets inativos.');</script>";
+    }
+    echo "<script>window.location.href = 'tablets.php';</script>";
+    exit();
 }
+
 
 // Consulta tablets ativos e inativos
-$query_ativos = "SELECT * FROM tablets WHERE ativo = true";
-$query_inativos = "SELECT * FROM tablets WHERE ativo = false";
-
-$result_ativos = pg_query($conexao, $query_ativos);
-$result_inativos = pg_query($conexao, $query_inativos);
-
-}
-
-// Obtém a lista de tablets ativos
 $sqlAtivos = "SELECT tablets.*, setores.nome AS setor_nome FROM tablets 
               LEFT JOIN setores ON tablets.setor_id = setores.id 
               WHERE status = 'ativo'";
 $stmt = $conn->query($sqlAtivos);
 $tabletsAtivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtém a lista de tablets inativos
 $sqlInativos = "SELECT tablets.*, setores.nome AS setor_nome FROM tablets 
                 LEFT JOIN setores ON tablets.setor_id = setores.id 
                 WHERE status = 'inativo'";
@@ -77,7 +83,6 @@ $sqlSetores = "SELECT id, nome FROM setores";
 $stmt = $conn->query($sqlSetores);
 $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -170,10 +175,10 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 
-     <!-- Botões de Ações em Massa -->
-     <form method="post">
+    <!-- Botões de Ações em Massa -->
+    <form method="post">
         <button type="submit" name="inativar_todos_tablets">Inativar Todos os Tablets</button>
-        <button type="submit" name="excluir_inativos_tablets" <?php echo pg_num_rows($result_inativos) == 0 ? 'disabled' : ''; ?>>Excluir Tablets Inativos</button>
+        <button type="submit" name="excluir_inativos_tablets" <?= empty($tabletsInativos) ? 'disabled' : ''; ?>>Excluir Tablets Inativos</button>
     </form>
 </div>
 <script src="../../public/js/tablets.js"></script>

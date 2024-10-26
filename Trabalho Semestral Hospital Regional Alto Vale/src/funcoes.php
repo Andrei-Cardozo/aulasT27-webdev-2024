@@ -47,5 +47,12 @@ function adicionarPergunta($texto) {
     return false;
 }
 
-// (Outras funções de perguntas e respostas podem ser adicionadas aqui)
+function listarSetores() {
+    $conn = getConnection(); // Obter a conexão com o banco de dados
+    $sql = "SELECT * FROM setores WHERE ativo = TRUE"; // Filtrar setores ativos
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os setores ativos
+}
+
 ?>
