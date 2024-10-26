@@ -210,6 +210,43 @@ if (empty($perguntasInativas)) {
         <button type="submit" name="excluir_todas_perguntas" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todas as Perguntas Inativas</button>
     </form>
 </div>
+
+<div class="sidebar">
+        <div class="containerSidebar">
+            <div class="logo">
+                <!-- Colocar admin aqui --> <!-- alterar icones -->
+            </div>
+
+        <ul class="menu">
+            <li><a href="../admin.php">
+                <i class="fas fa-home"></i>
+                <span>Menu</span>
+                </span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-bell"></i>
+                <span>Gerenciar Setores</span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-gear"></i>
+                <span>Gerenciar Tablets</span>
+            </a></li>
+            
+            <li><a href="">
+                <i class="fas fa-globe"></i>
+                <span>Gerenciar Perguntas</span>  
+            </a></li>
+
+            <li><a href="">
+                <i class=""></i>
+                <span>Dashboards das Respostas</span>
+            </a></li>
+
+        </ul>
+    </div>
+    
 <script src="../../public/js/quests.js"></script>
 </body>
 </html>

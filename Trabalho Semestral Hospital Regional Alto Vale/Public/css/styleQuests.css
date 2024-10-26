@@ -5,7 +5,7 @@ body {
 
 .container {
     width: 80%;
-    margin: auto;
+    margin-right: 15%;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -124,4 +124,96 @@ th {
 }
 .btn-alert:hover {
     background-color: #a79428;
+}
+.sidebar {
+    position: fixed; /* ou 'absolute', dependendo do comportamento desejado */
+    top: 0;
+    right: 0; /* Posiciona a sidebar no canto superior direito */
+    width: 15%;
+    height: 100%; /* Ajusta a altura para ocupar toda a altura da página */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, #002244, #0056a3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+    padding: 2rem 0;
+    border-radius: 12px 0 12px 0;
+    z-index: 10; /* Adiciona um índice z para que a sidebar fique acima de outros elementos */
+}
+.sidebar.active{
+    width: 5%;
+}
+
+.containerSidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    border-radius: 12px 0 0 0 0;
+    margin-top: 10px;
+    padding: 0;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px;
+    margin: 5px;
+}
+
+.menu li a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.menu li a:hover{
+    background: rgba(255, 255, 255, .3);
+}
+.menu li a i{
+    font-size: 22px;
+}
+
+.logout{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    padding: 0 10%;
+    color: white;
+}
+.logout a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem 10%;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.logout a:hover{
+    background-color: rgba(255, 255, 255, .3);
+    cursor: pointer;
+}
+.sidebar.active .menu li a span,
+.sidebar.active .logout span{
+    display: none;
+}
+
+.sidebar.active .menu li a,
+.sidebar.active .logout{
+    justify-content: center;
 }

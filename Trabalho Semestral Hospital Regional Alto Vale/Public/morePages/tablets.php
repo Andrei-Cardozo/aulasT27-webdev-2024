@@ -181,6 +181,44 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit" name="excluir_inativos_tablets" <?= empty($tabletsInativos) ? 'disabled' : ''; ?>>Excluir Tablets Inativos</button>
     </form>
 </div>
+
+            <!-- Codigos em css não estão sendo carregados -->
+
+<div class="sidebar">
+        <div class="containerSidebar">
+            <div class="logo">
+                <!-- Colocar admin aqui --> <!-- alterar icones -->
+            </div>
+
+        <ul class="menu">
+            <li><a href="../admin.php">
+                <i class="fas fa-home"></i>
+                <span>Menu</span>
+                </span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-bell"></i>
+                <span>Gerenciar Setores</span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-gear"></i>
+                <span>Gerenciar Tablets</span>
+            </a></li>
+            
+            <li><a href="">
+                <i class="fas fa-globe"></i>
+                <span>Gerenciar Perguntas</span>  
+            </a></li>
+
+            <li><a href="">
+                <i class=""></i>
+                <span>Dashboards das Respostas</span>
+            </a></li>
+
+        </ul>
+    </div>  
 <script src="../../public/js/tablets.js"></script>
 </body>
 </html>

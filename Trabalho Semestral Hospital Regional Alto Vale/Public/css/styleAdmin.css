@@ -77,7 +77,6 @@ table {
 }
 
 th, td {
-    border: 1px solid #ccc; /* Borda das células */
     padding: 8px; /* Espaçamento interno das células */
     text-align: left; /* Alinhamento do texto à esquerda */
 }

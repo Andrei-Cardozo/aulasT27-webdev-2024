@@ -167,6 +167,7 @@ $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <th>Feedback</th>
                         <th>Setor</th>
+                        <hr>
                     </tr>
                 </thead>
                 <tbody>
