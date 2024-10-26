@@ -49,6 +49,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Respostas</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../public/css/styleAnswers.css">
     <style>
         /* Estilos globais */
         body {
@@ -113,6 +114,46 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
+
+    <div class="sidebar">
+        <div class="containerSidebar">
+            <div class="logo">
+                <!-- Colocar admin aqui -->
+            </div>
+
+        <ul class="menu">
+            <li><a href="../admin.php">
+                <i class="fas fa-home"></i>
+                <span>Menu</span>
+                </span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notificações</span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-gear"></i>
+                <span>Configurações</span>
+            </a></li>
+            
+            <li><a href="https://www.hrav.com.br/">
+                <i class="fas fa-globe"></i>
+                <span>Site HRAV</span>  
+            </a></li>
+
+        </ul>
+    </div>
+
+    <div class="logout">
+        <a href="../src/logout.php">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="link-text">Sair</span>
+        </a>
+    </div>
+
+    </div>
     <div class="container">
         <h1>Dashboard de Respostas</h1>
         <div class="chart-container">

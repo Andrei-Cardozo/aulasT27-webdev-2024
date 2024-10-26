@@ -76,6 +76,7 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
     <link rel="stylesheet" href="../../public/css/styleSetores.css"> 
 </head>
 <body>
+
     <div class="container">
         <h1>Cadastrar Setores</h1>
 
@@ -127,6 +128,44 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
                 <li><?php echo htmlspecialchars($setor['nome']); ?></li>
             <?php endforeach; ?>
         </ul>
+    </div>
+
+    <div class="sidebar">
+        <div class="containerSidebar">
+            <div class="logo">
+                <!-- Colocar admin aqui -->
+            </div>
+
+        <ul class="menu">
+            <li><a href="../admin.php">
+                <i class="fas fa-home"></i>
+                <span>Menu</span>
+                </span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notificações</span>
+            </a></li>
+
+            <li><a href="">
+                <i class="fa-solid fa-gear"></i>
+                <span>Configurações</span>
+            </a></li>
+            
+            <li><a href="https://www.hrav.com.br/">
+                <i class="fas fa-globe"></i>
+                <span>Site HRAV</span>  
+            </a></li>
+
+        </ul>
+    </div>
+
+    <div class="logout">
+        <a href="../src/logout.php">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="link-text">Sair</span>
+        </a>
     </div>
 </body>
 </html>
