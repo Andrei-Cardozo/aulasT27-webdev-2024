@@ -57,7 +57,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
+            padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -112,15 +112,105 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
         th {
             background-color: #f0f0f0;
         }
+        .sidebar{
+            position: fixed;
+            right: 0;
+            top: 10px;
+            width: 15%;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: linear-gradient(to bottom, #002244, #0056a3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+            padding: 2rem 0;
+            overflow: hidden;
+            transition: width .3s ease-in-out;
+            border-radius: 12px;
+}
+.sidebar.active{
+    width: 5%;
+}
+
+.containerSidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    border-radius: 12px;
+    margin-top: -80px;
+    padding: 0;
+}
+.logo img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: white;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2px;
+}
+
+.menu li a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.menu li a:hover{
+    background: rgba(255, 255, 255, .3);
+}
+.menu li a i{
+    font-size: 25px;
+}
+
+.logout{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    padding: 0 10%;
+    color: white;
+}
+.logout a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem 10%;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.logout a:hover{
+    background-color: rgba(255, 255, 255, .3);
+    cursor: pointer;
+}
+.sidebar.active .menu li a span,
+.sidebar.active .logout span{
+    display: none;
+}
+
+.sidebar.active .menu li a,
+.sidebar.active .logout{
+    justify-content: center;
+}
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="containerSidebar">
-            <div class="logo">
-                <!-- Colocar admin aqui -->
-            </div>
+<div class="sidebar">
+        <div class="containerSidebar">>
 
         <ul class="menu">
             <li><a href="../admin.php">
@@ -129,29 +219,27 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
                 </span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-bell"></i>
-                <span>Notificações</span>
+            <li><a href="setores.php">
+                <i class="fa-solid fa-window-restore"></i>
+                <span>Gerenciar Setores</span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-gear"></i>
-                <span>Configurações</span>
+            <li><a href="tablets.php">
+                <i class="fa-solid fa-tablet-screen-button"></i>
+                <span>Gerenciar Tablets</span>
             </a></li>
             
-            <li><a href="https://www.hrav.com.br/">
-                <i class="fas fa-globe"></i>
-                <span>Site HRAV</span>  
+            <li><a href="quests.php">
+                <i class="fa-solid fa-clipboard-question"></i><i class="fa-solid fa-question"></i>
+                <span>Gerenciar Perguntas</span>  
+            </a></li>
+
+            <li><a href="answers.php">
+                <i class="fa-regular fa-comments"></i>
+                <span>Dashboards das Respostas</span>
             </a></li>
 
         </ul>
-    </div>
-
-    <div class="logout">
-        <a href="../src/logout.php">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="link-text">Sair</span>
-        </a>
     </div>
 
     </div>

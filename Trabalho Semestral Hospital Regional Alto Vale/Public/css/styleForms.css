@@ -2,6 +2,7 @@
     font-family: 'ClarendonRegular';
     src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -9,17 +10,24 @@
 }
 
 body {
-    background-color: #ddd5d5;
+    background-color: #f2f4f8; /* Cor suave e profissional para o fundo */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 100vh; /* Alterado para ocupar toda a altura da tela */
     text-align: center;
     flex-direction: column;
     font-family: 'ClarendonRegular', sans-serif;
+    color: #333; /* Texto em cor escura para melhor legibilidade */
 }
 
-section, h2, div.feedback-area, button#submit-button {
+h2 {
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    font-size: 28px; /* Tamanho da fonte do título */
+    color: #0056b3; /* Cor do título, transmite confiança */
+}
+
+section, div.feedback-area, button#submit-button {
     margin: 10px 0; /* Espaçamento entre os elementos */
 }
 
@@ -35,10 +43,9 @@ section, h2, div.feedback-area, button#submit-button {
 .scale-number {
     font-size: 24px;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #ffffff; /* Fundo branco para os números da escala */
     border-radius: 5px;
-    opacity: 0; /* Começa invisível */
-    transform: translateX(-30px); /* Posição inicial à esquerda */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar os números */
     transition: opacity 0.5s, transform 0.1s; /* Transições suaves */
 }
 
@@ -51,6 +58,35 @@ section, h2, div.feedback-area, button#submit-button {
 /* Estilos adicionais para a área de feedback */
 .feedback-area {
     margin-top: 20px;
+    border: 1px solid #ccc; /* Borda suave para a área de feedback */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 15px; /* Espaçamento interno */
+    background-color: #fff; /* Fundo branco para feedback */
+}
+
+textarea {
+    width: 100%; /* Largura total */
+    height: 100px; /* Altura do textarea */
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Borda suave */
+    padding: 10px; /* Espaçamento interno */
+    margin-top: 5px; /* Espaçamento acima do textarea */
+    resize: none; /* Desabilitar redimensionamento */
+}
+
+button[type="submit"] {
+    background: linear-gradient(to right, #002244, #0056a3); /* Cor de fundo do botão de envio */
+    color: white; /* Texto branco */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 10px 20px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+button[type="submit"]:hover {
+    background-color: #004494; /* Cor mais escura no hover */
 }
 
 footer {

@@ -1,15 +1,23 @@
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    display: flex;
+    font-family: 'ClarendonRegular', sans-serif;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
+    max-width: 900px; /* Ajuste este valor conforme necessário */
+    width: 100%; /* Permite que o container ocupe a largura total disponível */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2px auto; /* Centraliza o container horizontalmente */
+    max-height: 550px;
 }
 
 h1, h2 {
@@ -24,7 +32,7 @@ form {
 
 input[type="text"] {
     padding: 10px;
-    width: 70%;
+    width: 50%;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -44,22 +52,75 @@ button:hover {
     background-color: #218838;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+li {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-th, td {
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
     padding: 10px;
+    border-radius: 4px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-th {
-    background-color: #f2f2f2;
+/* Estilos para o modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #218838;
 }
 
 .btn-danger {
@@ -69,20 +130,24 @@ th {
 .btn-danger:hover {
     background-color: #c82333;
 }
-.sidebar {
-    position: fixed; /* ou 'absolute', dependendo do comportamento desejado */
-    top: 0;
-    right: 0; /* Posiciona a sidebar no canto superior direito */
+.btn-alert {
+    background-color: #218838;
+}
+.btn-alert:hover {
+    background-color: #a79428;
+}
+.sidebar{
     width: 15%;
-    height: 100%; /* Ajusta a altura para ocupar toda a altura da página */
+    height: 550px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     background: linear-gradient(to bottom, #002244, #0056a3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
     padding: 2rem 0;
-    border-radius: 12px 0 12px 0;
-    z-index: 10; /* Adiciona um índice z para que a sidebar fique acima de outros elementos */
+    overflow: hidden;
+    transition: width .3s ease-in-out;
+    border-radius: 12px;
 }
 .sidebar.active{
     width: 5%;
@@ -92,15 +157,16 @@ th {
     display: flex;
     flex-direction: column;
     gap: 5rem;
-    border-radius: 12px 0 0 0 0;
-    margin-top: 10px;
+    border-radius: 12px;
+    margin-top: -80px;
     padding: 0;
 }
-.logo{
+.logo img{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
+    width: 50px;
+    height: 50px;
     color: white;
 }
 
@@ -108,8 +174,7 @@ th {
     list-style: none;
     display: flex;
     flex-direction: column;
-    padding: 5px 5px;
-    margin: 5px;
+    padding: 0 2px;
 }
 
 .menu li a{
@@ -120,7 +185,7 @@ th {
     font-size: 18px;
     color: white;
     border-radius: 15px;
-    padding: 1rem;
+    padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
 }
@@ -128,7 +193,7 @@ th {
     background: rgba(255, 255, 255, .3);
 }
 .menu li a i{
-    font-size: 22px;
+    font-size: 25px;
 }
 
 .logout{

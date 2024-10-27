@@ -20,6 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     for ($i = 0; $i < count($id_perguntas); $i++) {
         $id_pergunta = $id_perguntas[$i];
         $avaliacao = $avaliacoes[$i];
+        
+        // Verifica se a avaliação é um inteiro válido entre 0 e 10
+        if (!is_numeric($avaliacao) || $avaliacao < 0 || $avaliacao > 10) {
+            continue; // Ignora esta iteração se a avaliação não for válida
+        }
+        
         $feedback = !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
 
         $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback, setor_id) VALUES (:id_pergunta, :avaliacao, :feedback, :setor_id)';
@@ -43,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     <title>Obrigado!</title>
     <link rel="stylesheet" href="css/styleThanks.css">
     <script>
-        // Função que redireciona para index.php após 2 segundos
+        // Função que redireciona para loading.php após 2 segundos
         setTimeout(function() {
             window.location.href = 'loading.php';
         }, 2500); // 2500 milissegundos = 2,5 segundos

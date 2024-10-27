@@ -89,7 +89,164 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Gerenciamento de Tablets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../../public/css/styleTablets.css">
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+        }
+        .container {
+            width: 100%;
+            height: 570px;
+            max-width: 900px;
+            margin-left: 130px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .chart {
+            width: 48%; /* Ajuste para duas colunas */
+            margin-bottom: 20px; /* Espaçamento entre linhas */
+        }
+        .feedback-container {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+            text-align: left; /* Alinhar texto à esquerda */
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .sidebar{
+            position: fixed;
+            right: 10px;
+            top: 10px;
+            width: 15%;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: linear-gradient(to bottom, #002244, #0056a3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+            padding: 2rem 0;
+            overflow: hidden;
+            transition: width .3s ease-in-out;
+            border-radius: 12px;
+}
+.sidebar.active{
+    width: 5%;
+}
+
+.containerSidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    border-radius: 12px;
+    margin-top: -80px;
+    padding: 0;
+}
+.logo img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: white;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0 2px;
+}
+
+.menu li a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.menu li a:hover{
+    background: rgba(255, 255, 255, .3);
+}
+.menu li a i{
+    font-size: 25px;
+}
+
+.logout{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 18px;
+    padding: 0 10%;
+    color: white;
+}
+.logout a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    border-radius: 15px;
+    padding: 1rem 10%;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+.logout a:hover{
+    background-color: rgba(255, 255, 255, .3);
+    cursor: pointer;
+}
+.sidebar.active .menu li a span,
+.sidebar.active .logout span{
+    display: none;
+}
+
+.sidebar.active .menu li a,
+.sidebar.active .logout{
+    justify-content: center;
+}
+    </style>
 </head>
 <body>
 <div class="container">
@@ -176,19 +333,20 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 
     <!-- Botões de Ações em Massa -->
-    <form method="post">
-        <button type="submit" name="inativar_todos_tablets">Inativar Todos os Tablets</button>
-        <button type="submit" name="excluir_inativos_tablets" <?= empty($tabletsInativos) ? 'disabled' : ''; ?>>Excluir Tablets Inativos</button>
+    <h2>Ações em Massa</h2>
+    <form method="POST" action="" style="display: inline;">
+        <button type="submit" name="inativar_todos_tablets" class="btn btn-alert" onclick="return confirm('Tem certeza que deseja inativar todas as perguntas ativas?');">Inativar Todas as Perguntas</button>
+    </form>
+
+    <form method="POST" action="" style="display: inline;">
+        <button type="submit" name="excluir_inativos_tablets" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todas as Perguntas Inativas</button>
     </form>
 </div>
 
             <!-- Codigos em css não estão sendo carregados -->
 
-<div class="sidebar">
-        <div class="containerSidebar">
-            <div class="logo">
-                <!-- Colocar admin aqui --> <!-- alterar icones -->
-            </div>
+            <div class="sidebar">
+        <div class="containerSidebar">>
 
         <ul class="menu">
             <li><a href="../admin.php">
@@ -197,28 +355,28 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-bell"></i>
+            <li><a href="setores.php">
+                <i class="fa-solid fa-window-restore"></i>
                 <span>Gerenciar Setores</span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-gear"></i>
+            <li><a href="tablets.php">
+                <i class="fa-solid fa-tablet-screen-button"></i>
                 <span>Gerenciar Tablets</span>
             </a></li>
             
-            <li><a href="">
-                <i class="fas fa-globe"></i>
+            <li><a href="quests.php">
+                <i class="fa-solid fa-clipboard-question"></i><i class="fa-solid fa-question"></i>
                 <span>Gerenciar Perguntas</span>  
             </a></li>
 
-            <li><a href="">
-                <i class=""></i>
+            <li><a href="answers.php">
+                <i class="fa-regular fa-comments"></i>
                 <span>Dashboards das Respostas</span>
             </a></li>
 
         </ul>
-    </div>  
+    </div>
 <script src="../../public/js/tablets.js"></script>
 </body>
 </html>

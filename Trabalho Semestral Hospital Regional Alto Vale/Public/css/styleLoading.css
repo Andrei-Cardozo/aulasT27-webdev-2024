@@ -2,17 +2,20 @@
     font-family: 'ClarendonRegular';
     src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Melhora o controle de dimensões */
 }
+
 /* Estilo do fundo da tela de loading */
 body, html {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #e7f2f8; /* Cor de fundo suave */
     font-family: 'ClarendonRegular', sans-serif;
 }
 
@@ -23,15 +26,15 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    color: #2c3e50;
+    color: #34495e; /* Cor do texto mais escura */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-image: url(../images/BackgroundLoading.jpg);
-    background-size: cover; 
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
+    overflow: hidden; /* Impede overflow indesejado */
 }
 
 #loading-screen::before {
@@ -41,31 +44,28 @@ body, html {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(../images/BackgroundLoading.jpg);
-    filter: brightness(0.7); 
-    z-index: 1; 
-    background-image: url(../images/BackgroundLoading.jpg);
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center; 
+    background-color: rgba(255, 255, 255, 0.8); /* Camada branca suave */
+    filter: brightness(0.85);
+    z-index: 1;
 }
 
 .spinner {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #17da17;
+    border: 16px solid #f0f0f0; /* Cor do fundo do spinner */
+    border-top: 16px solid #2ecc71; /* Verde mais suave para o spinner */
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-    z-index: 2; 
+    z-index: 2;
 }
 
 p {
     z-index: 3;
-    color: #f0f0f0;
-    font-family: 'ClarendonRegular', sans-serif;
+    color: #34495e; /* Cor do texto mais escura */
+    font-size: 1.2em; /* Aumenta o tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Espaçamento acima do texto */
 }
-
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

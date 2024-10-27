@@ -128,7 +128,7 @@ th {
 .sidebar {
     position: fixed; /* ou 'absolute', dependendo do comportamento desejado */
     top: 0;
-    right: 0; /* Posiciona a sidebar no canto superior direito */
+    right: 10px; /* Posiciona a sidebar no canto superior direito */
     width: 15%;
     height: 100%; /* Ajusta a altura para ocupar toda a altura da página */
     display: flex;
@@ -150,6 +150,7 @@ th {
     gap: 5rem;
     border-radius: 12px 0 0 0 0;
     margin-top: 10px;
+    margin-right: 10px;
     padding: 0;
 }
 .logo{

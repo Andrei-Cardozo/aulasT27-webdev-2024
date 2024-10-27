@@ -24,21 +24,74 @@ if ($setor_id === null) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Avaliação</title>
     <link rel="stylesheet" href="css/styleForms.css">
+    <style>
+        /* Seu CSS existente */
+        .rating-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .rating-button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .rating-button:hover {
+            transform: scale(1.1);
+        }
+        .rating-button.selected {
+            border: 2px solid #34495e;
+            transform: scale(1.3);
+        }
+        .rating-button.blurred {
+            filter: blur(2px);
+            opacity: 0.6;
+        }
+        button[type="submit"] {
+        background: linear-gradient(to right, #002244, #0056a3); /* Cor de fundo do botão de envio */
+        color: white; /* Texto branco */
+        border: none; /* Sem borda */
+        border-radius: 5px; /* Borda arredondada */
+        padding: 10px 20px; /* Espaçamento interno */
+        font-size: 16px; /* Tamanho da fonte */
+        cursor: pointer; /* Cursor de ponteiro */
+        transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+    </style>
 </head>
 <body>
     <h2>Formulário de Avaliação</h2>
     
-    <form action="thanks.php" method="post">
-        <input type="hidden" name="setor_id" value="<?= $setor_id ?>"> <!-- Campo oculto para setor_id -->
+    <form action="thanks.php" method="post" onsubmit="return validateForm()">
+        <input type="hidden" name="setor_id" value="<?= $setor_id ?>">
 
         <?php if (!empty($perguntas)): ?>
             <?php foreach ($perguntas as $pergunta): ?>
                 <section>
                     <p><?= htmlspecialchars($pergunta['texto']) ?></p>
                     <input type="hidden" name="id_pergunta[]" value="<?= $pergunta['id'] ?>">
-                    <label for="avaliacao_<?= $pergunta['id'] ?>">Avaliação (0-10):</label>
-                    <input type="number" name="avaliacao[]" id="avaliacao_<?= $pergunta['id'] ?>" min="0" max="10" required>
+                    
+                    <div class="rating-buttons">
+                        <?php
+                        // Cores do degradê do vermelho ao verde
+                        $cores = [
+                            '#7A0000', '#9F1919', '#B23232', '#C64C4C',
+                            '#D66B1B', '#D6A51B', '#B3C32B', '#66C32B',
+                            '#33C32B', '#007A00', '#007A00',
+                        ];
+                        ?>
+                        <?php for ($i = 0; $i <= 10; $i++): ?>
+                            <button type="button" class="rating-button" style="background-color: <?= $cores[$i] ?>;" data-value="<?= $i ?>" onclick="selectRating(this, <?= $pergunta['id'] ?>)"><?= $i ?></button>
+                        <?php endfor; ?>
+                    </div>
+                    <input type="hidden" name="avaliacao[]" id="avaliacao_<?= $pergunta['id'] ?>" required>
                     <br>
+                    
                     <label for="feedback_<?= $pergunta['id'] ?>">Feedback (opcional):</label>
                     <textarea name="feedback[]" id="feedback_<?= $pergunta['id'] ?>"></textarea>
                 </section>
@@ -54,5 +107,53 @@ if ($setor_id === null) {
     </footer>
 
     <script src="js/scaleAnimation.js"></script>
+    <script>
+    function selectRating(button, perguntaId) {
+        const buttons = document.querySelectorAll(`.rating-button`);
+        const isSelected = button.classList.contains('selected');
+
+        if (isSelected) {
+            button.classList.remove('selected');
+            button.classList.add('blurred');
+            button.style.transform = 'scale(1)';
+            button.style.border = 'none';
+
+            document.getElementById(`avaliacao_${perguntaId}`).value = '';
+
+            const anySelected = Array.from(buttons).some(btn => btn.classList.contains('selected'));
+            if (!anySelected) {
+                buttons.forEach(btn => {
+                    btn.classList.remove('blurred');
+                });
+            }
+        } else {
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                btn.classList.add('blurred');
+                btn.style.transform = 'scale(1)';
+                btn.style.border = 'none';
+            });
+
+            button.classList.add('selected');
+            button.classList.remove('blurred');
+            button.style.transform = 'scale(1.3)';
+            button.style.border = '2px solid #ffc107';
+
+            const ratingValue = button.getAttribute('data-value');
+            document.getElementById(`avaliacao_${perguntaId}`).value = ratingValue;
+        }
+    }
+
+    function validateForm() {
+        const avaliacaoFields = document.querySelectorAll('input[name="avaliacao[]"]');
+        for (let field of avaliacaoFields) {
+            if (!field.value) {
+                alert("Por favor, selecione uma nota para todas as perguntas.");
+                return false; // Impede o envio do formulário
+            }
+        }
+        return true; // Permite o envio do formulário
+    }
+    </script>
 </body>
 </html>

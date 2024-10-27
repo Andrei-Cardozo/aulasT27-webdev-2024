@@ -57,11 +57,12 @@ ul {
     padding: 0;
 }
 
-li {
+.setAtivos{
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #f8d7da;
 }
 
 .alert {
@@ -148,6 +149,7 @@ li {
     overflow: hidden;
     transition: width .3s ease-in-out;
     border-radius: 12px;
+    margin-right: 10px;
 }
 .sidebar.active{
     width: 5%;
@@ -158,14 +160,15 @@ li {
     flex-direction: column;
     gap: 5rem;
     border-radius: 12px;
-    margin-top: 0;
+    margin-top: -80px;
     padding: 0;
 }
-.logo{
+.logo img{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
+    width: 50px;
+    height: 50px;
     color: white;
 }
 
@@ -174,6 +177,7 @@ li {
     display: flex;
     flex-direction: column;
     padding: 0 2px;
+    margin-top: -50px;
 }
 
 .menu li a{
@@ -184,15 +188,16 @@ li {
     font-size: 18px;
     color: white;
     border-radius: 15px;
-    padding: 1rem;
+    padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
+    margin-top: 30px;
 }
 .menu li a:hover{
     background: rgba(255, 255, 255, .3);
 }
 .menu li a i{
-    font-size: 22px;
+    font-size: 25px;
 }
 
 .logout{

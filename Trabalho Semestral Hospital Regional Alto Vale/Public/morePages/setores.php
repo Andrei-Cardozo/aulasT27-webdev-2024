@@ -73,6 +73,7 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Setores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../../public/css/styleSetores.css"> 
 </head>
 <body>
@@ -101,7 +102,7 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
         <h2>Setores Ativos</h2>
         <ul>
             <?php foreach ($setores_ativos as $setor): ?>
-                <li>
+                <li class="setAtivos">
                     <?php echo htmlspecialchars($setor['nome']); ?>
                     <!-- Botão para Inativar Setor -->
                     <form action="setores.php" method="post" style="display: inline;">
@@ -131,10 +132,7 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
     </div>
 
     <div class="sidebar">
-        <div class="containerSidebar">
-            <div class="logo">
-                <!-- Colocar admin aqui --> <!-- alterar icones -->
-            </div>
+        <div class="containerSidebar">>
 
         <ul class="menu">
             <li><a href="../admin.php">
@@ -143,23 +141,23 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
                 </span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-bell"></i>
+            <li><a href="setores.php">
+                <i class="fa-solid fa-window-restore"></i>
                 <span>Gerenciar Setores</span>
             </a></li>
 
-            <li><a href="">
-                <i class="fa-solid fa-gear"></i>
+            <li><a href="tablets.php">
+                <i class="fa-solid fa-tablet-screen-button"></i>
                 <span>Gerenciar Tablets</span>
             </a></li>
             
-            <li><a href="">
-                <i class="fas fa-globe"></i>
+            <li><a href="quests.php">
+                <i class="fa-solid fa-clipboard-question"></i><i class="fa-solid fa-question"></i>
                 <span>Gerenciar Perguntas</span>  
             </a></li>
 
-            <li><a href="">
-                <i class=""></i>
+            <li><a href="answers.php">
+                <i class="fa-regular fa-comments"></i>
                 <span>Dashboards das Respostas</span>
             </a></li>
 
