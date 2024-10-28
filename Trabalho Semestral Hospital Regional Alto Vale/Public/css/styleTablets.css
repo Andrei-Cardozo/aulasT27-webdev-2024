@@ -2,6 +2,9 @@
     font-family: 'ClarendonRegular';
     src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
 }
+*{
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -10,14 +13,15 @@ body {
 }
 
 .container {
-    max-width: 900px; /* Ajuste este valor conforme necessário */
-    width: 100%; /* Permite que o container ocupe a largura total disponível */
+    width: 100%;
+    max-width: 900px;
+    margin-left: 130px;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 2px auto; /* Centraliza o container horizontalmente */
-    max-height: 550px;
+    text-align: center;
+    height: auto;
 }
 
 h1, h2 {

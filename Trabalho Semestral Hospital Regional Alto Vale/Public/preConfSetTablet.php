@@ -10,7 +10,11 @@ if (!$db) {
 
 try {
     $setores = $db->query("SELECT * FROM setores")->fetchAll(PDO::FETCH_ASSOC);
-    $tablets = $db->query("SELECT * FROM tablets")->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Alteração: apenas tablets ativos
+    $sqlTabletsAtivos = "SELECT * FROM tablets WHERE status = 'ativo'";
+    $stmt = $db->query($sqlTabletsAtivos);
+    $tabletsAtivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erro ao buscar dados: " . $e->getMessage();
 }
@@ -35,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: loading.php?tablet_id={$tablet_id}&setor_id={$setor_id}");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" id="formId">
             <label for="tablet">Escolha o Tablet:</label>
             <select name="tablet" id="tablet" required>
-                <?php foreach ($tablets as $tablet): ?>
+                <?php foreach ($tabletsAtivos as $tablet): ?>
                     <option value="<?= $tablet['id'] ?>"><?= htmlspecialchars($tablet['nome']) ?></option>
                 <?php endforeach; ?>
             </select>

@@ -56,7 +56,11 @@ if (isset($_POST['inativar_todos_tablets'])) {
 if (isset($_POST['excluir_inativos_tablets'])) {
     $sqlExcluirInativos = "DELETE FROM tablets WHERE status = 'inativo'";
     if ($conn->query($sqlExcluirInativos)) {
-        echo "<script>alert('Tablets inativos excluídos permanentemente.');</script>";
+        // Redefine o ID para começar novamente em 1
+        $sqlResetId = "ALTER SEQUENCE tablets_id_seq RESTART WITH 1";
+        $conn->query($sqlResetId);
+
+        echo "<script>alert('Tablets inativos excluídos permanentemente e IDs redefinidos.');</script>";
     } else {
         echo "<script>alert('Erro ao excluir tablets inativos.');</script>";
     }
@@ -105,9 +109,9 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         .container {
             width: 100%;
-            height: 570px;
+            height: auto;
             max-width: 900px;
-            margin-left: 130px;
+            margin-right: 130px;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -158,7 +162,7 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
             right: 10px;
             top: 10px;
             width: 15%;
-            height: 550px;
+            height: 600px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -335,11 +339,11 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Botões de Ações em Massa -->
     <h2>Ações em Massa</h2>
     <form method="POST" action="" style="display: inline;">
-        <button type="submit" name="inativar_todos_tablets" class="btn btn-alert" onclick="return confirm('Tem certeza que deseja inativar todas as perguntas ativas?');">Inativar Todas as Perguntas</button>
+        <button type="submit" name="inativar_todos_tablets" class="btn btn-alert" onclick="return confirm('Tem certeza que deseja inativar todas as perguntas ativas?');">Inativar Todos Os Tablets</button>
     </form>
 
     <form method="POST" action="" style="display: inline;">
-        <button type="submit" name="excluir_inativos_tablets" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todas as Perguntas Inativas</button>
+        <button type="submit" name="excluir_inativos_tablets" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir permanentemente todas as perguntas inativas?');">Excluir Todos Os Tablets Inativos</button>
     </form>
 </div>
 
