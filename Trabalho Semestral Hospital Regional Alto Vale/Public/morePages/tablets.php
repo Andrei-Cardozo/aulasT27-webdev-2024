@@ -11,14 +11,11 @@ if (!$conn) {
 // Lida com a adição de um novo tablet
 if (isset($_POST['add_tablet'])) {
     $nomeTablet = $_POST['nome_tablet'];
-    $localTablet = $_POST['setor_id'];
-    
+
     // Insere o tablet no banco de dados
-    $sqlInsert = "INSERT INTO tablets (nome, local, setor_id) VALUES (:nome, :local, :setor_id)";
+    $sqlInsert = "INSERT INTO tablets (nome, status) VALUES (:nome, 'ativo')";
     $stmt = $conn->prepare($sqlInsert);
     $stmt->bindParam(':nome', $nomeTablet);
-    $stmt->bindParam(':local', $localTablet);
-    $stmt->bindParam(':setor_id', $localTablet);
     $stmt->execute();
     
     // Redireciona para evitar o reenvio do formulário
@@ -212,6 +209,7 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
     padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
+    margin-top: 15px;
 }
 .menu li a:hover{
     background: rgba(255, 255, 255, .3);
@@ -260,15 +258,6 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h2>Adicionar Novo Tablet</h2>
     <form method="POST" action="">
         <input type="text" name="nome_tablet" placeholder="Digite o nome do tablet" required>
-        
-        <!-- Dropdown para escolher o setor -->
-        <select name="setor_id" required>
-            <option value="">Selecione o Setor</option>
-            <?php foreach ($setores as $setor): ?>
-                <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
-            <?php endforeach; ?>
-        </select>
-
         <button type="submit" name="add_tablet">Adicionar</button>
     </form>
 
@@ -280,7 +269,6 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Setor</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -290,7 +278,6 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <td><?= $tablet['id'] ?></td>
                         <td><?= $tablet['nome'] ?></td>
-                        <td><?= $tablet['setor_nome'] ?></td>
                         <td>
                             <!-- Botão para Inativar Tablet -->
                             <form method="POST" action="" style="display: inline-block;">
@@ -316,7 +303,6 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Setor</th>
             </tr>
         </thead>
         <tbody>
@@ -325,7 +311,6 @@ $setores = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tr>
                         <td><?= $tablet['id'] ?></td>
                         <td><?= $tablet['nome'] ?></td>
-                        <td><?= $tablet['setor_nome'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

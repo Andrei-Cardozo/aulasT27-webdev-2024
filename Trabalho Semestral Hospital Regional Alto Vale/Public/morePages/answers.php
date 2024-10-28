@@ -114,7 +114,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
         }
         .sidebar{
             position: fixed;
-            right: 0;
+            right: 8px;
             top: 10px;
             width: 15%;
             height: 550px;
@@ -138,7 +138,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
     gap: 5rem;
     border-radius: 12px;
     margin-top: -80px;
-    padding: 0;
+    padding: 5px;
 }
 .logo img{
     display: flex;
@@ -167,6 +167,7 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
     padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
+    margin-top: 20px
 }
 .menu li a:hover{
     background: rgba(255, 255, 255, .3);

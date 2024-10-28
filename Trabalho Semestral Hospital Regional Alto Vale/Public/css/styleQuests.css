@@ -1,15 +1,23 @@
+@font-face {
+    font-family: 'ClarendonRegular';
+    src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    display: flex;
+    font-family: 'ClarendonRegular', sans-serif;
 }
 
 .container {
-    width: 80%;
-    margin-right: 15%;
+    max-width: 900px; /* Ajuste este valor conforme necessário */
+    width: 100%; /* Permite que o container ocupe a largura total disponível */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2px auto; /* Centraliza o container horizontalmente */
+    max-height: auto;
 }
 
 h1, h2 {
@@ -24,7 +32,7 @@ form {
 
 input[type="text"] {
     padding: 10px;
-    width: 70%;
+    width: 50%;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -44,22 +52,26 @@ button:hover {
     background-color: #218838;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+.setAtivos{
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8d7da;
 }
 
-th, td {
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
     padding: 10px;
+    border-radius: 4px;
     text-align: center;
-}
-
-th {
-    background-color: #f2f2f2;
+    margin-bottom: 20px;
 }
 
 /* Estilos para o modal */
@@ -125,20 +137,19 @@ th {
 .btn-alert:hover {
     background-color: #a79428;
 }
-.sidebar {
-    position: fixed; /* ou 'absolute', dependendo do comportamento desejado */
-    top: 0;
-    right: 10px; /* Posiciona a sidebar no canto superior direito */
+.sidebar{
     width: 15%;
-    height: 100%; /* Ajusta a altura para ocupar toda a altura da página */
+    height: 550px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     background: linear-gradient(to bottom, #002244, #0056a3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
     padding: 2rem 0;
-    border-radius: 12px 0 12px 0;
-    z-index: 10; /* Adiciona um índice z para que a sidebar fique acima de outros elementos */
+    overflow: hidden;
+    transition: width .3s ease-in-out;
+    border-radius: 12px;
+    margin-right: 10px;
 }
 .sidebar.active{
     width: 5%;
@@ -148,16 +159,16 @@ th {
     display: flex;
     flex-direction: column;
     gap: 5rem;
-    border-radius: 12px 0 0 0 0;
-    margin-top: 10px;
-    margin-right: 10px;
+    border-radius: 12px;
+    margin-top: -80px;
     padding: 0;
 }
-.logo{
+.logo img{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
+    width: 50px;
+    height: 50px;
     color: white;
 }
 
@@ -165,8 +176,8 @@ th {
     list-style: none;
     display: flex;
     flex-direction: column;
-    padding: 5px 5px;
-    margin: 5px;
+    padding: 0 2px;
+    margin-top: -50px;
 }
 
 .menu li a{
@@ -177,15 +188,16 @@ th {
     font-size: 18px;
     color: white;
     border-radius: 15px;
-    padding: 1rem;
+    padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
+    margin-top: 30px;
 }
 .menu li a:hover{
     background: rgba(255, 255, 255, .3);
 }
 .menu li a i{
-    font-size: 22px;
+    font-size: 25px;
 }
 
 .logout{
@@ -217,4 +229,32 @@ th {
 .sidebar.active .menu li a,
 .sidebar.active .logout{
     justify-content: center;
+}
+table.tabela-setores {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0; /* Espaço acima e abaixo da tabela */
+}
+
+table.tabela-setores, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas pares com fundo diferente para melhor legibilidade */
+}
+
+tbody tr:hover {
+    background-color: #e9ecef; /* Efeito hover nas linhas da tabela */
 }

@@ -4,10 +4,11 @@ require_once '../src/funcoes.php'; // Inclui o arquivo de funções
 $conn = getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
-    $id_perguntas = $_POST['id_pergunta'];
-    $avaliacoes = $_POST['avaliacao'];
-    $feedbacks = $_POST['feedback'];
-    
+    // Verifica se os dados foram enviados e estão definidos
+    $id_perguntas = isset($_POST['id_pergunta']) ? $_POST['id_pergunta'] : [];
+    $avaliacoes = isset($_POST['avaliacao']) ? $_POST['avaliacao'] : [];
+    $feedbacks = isset($_POST['feedback']) ? $_POST['feedback'] : [];
+
     // Captura do setor_id
     $setor_id = isset($_POST['setor_id']) ? (int)$_POST['setor_id'] : null;
 
@@ -20,14 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     for ($i = 0; $i < count($id_perguntas); $i++) {
         $id_pergunta = $id_perguntas[$i];
         $avaliacao = $avaliacoes[$i];
-        
+
         // Verifica se a avaliação é um inteiro válido entre 0 e 10
         if (!is_numeric($avaliacao) || $avaliacao < 0 || $avaliacao > 10) {
             continue; // Ignora esta iteração se a avaliação não for válida
         }
         
-        $feedback = !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
+        // Verifica se o feedback é definido, se não estiver vazio, atribui
+        $feedback = isset($feedbacks[$i]) && !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
 
+        // Prepara e executa a inserção
         $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback, setor_id) VALUES (:id_pergunta, :avaliacao, :feedback, :setor_id)';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_pergunta', $id_pergunta);

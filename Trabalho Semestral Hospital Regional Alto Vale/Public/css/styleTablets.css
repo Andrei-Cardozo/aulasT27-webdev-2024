@@ -192,6 +192,7 @@ li {
     padding: 15px;
     text-transform: uppercase;
     transition: all .3s ease-in-out;
+    margin-top: 20px;
 }
 .menu li a:hover{
     background: rgba(255, 255, 255, .3);

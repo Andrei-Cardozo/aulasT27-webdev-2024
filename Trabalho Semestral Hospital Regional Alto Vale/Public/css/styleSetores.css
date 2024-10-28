@@ -17,7 +17,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2px auto; /* Centraliza o container horizontalmente */
-    max-height: 550px;
+    max-height: auto;
 }
 
 h1, h2 {
@@ -229,4 +229,32 @@ ul {
 .sidebar.active .menu li a,
 .sidebar.active .logout{
     justify-content: center;
+}
+table.tabela-setores {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0; /* Espaço acima e abaixo da tabela */
+}
+
+table.tabela-setores, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas pares com fundo diferente para melhor legibilidade */
+}
+
+tbody tr:hover {
+    background-color: #e9ecef; /* Efeito hover nas linhas da tabela */
 }

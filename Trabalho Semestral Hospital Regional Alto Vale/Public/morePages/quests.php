@@ -7,13 +7,18 @@ $conn = getConnection();
 
 // Instancia o objeto da classe Perguntas
 $perguntasObj = new Perguntas($conn);
+// Obtém a lista de setores
+$setores = $perguntasObj->listarSetores();
+
+// Inicia a sessão uma vez no início do script
+session_start();
 
 // Lida com adição de nova pergunta
 if (isset($_POST['add_pergunta'])) {
     $novaPergunta = $_POST['nova_pergunta'];
-    $perguntasObj->adicionarPergunta($novaPergunta);
-    // Redireciona para a mesma página para evitar que o usuário veja o alerta novamente ao recarregar
-    echo "<script>window.location.href = 'quests.php';</script>";
+    $setor_id = $_POST['setor_id'];
+    $perguntasObj->adicionarPergunta($novaPergunta, $setor_id);
+    header("Location: quests.php");
     exit();
 }
 
@@ -22,25 +27,18 @@ if (isset($_POST['edit_pergunta'])) {
     $id = $_POST['id'];
     $textoEditado = $_POST['texto_editado'];
     $perguntasObj->editarPergunta($id, $textoEditado);
-    // Redireciona após edição
-    echo "<script>window.location.href = 'quests.php';</script>";
+    header("Location: quests.php");
     exit();
 }
 
 // Lida com a inativação de uma pergunta
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_pergunta'])) {
+if (isset($_POST['delete_pergunta'])) {
     $id = $_POST['id']; // Obtém o ID da pergunta do formulário
     if ($perguntasObj->deletarPergunta($id)) {
-        // Exibe uma mensagem de sucesso usando uma variável de sessão
-        session_start();
         $_SESSION['mensagem'] = 'Pergunta marcada como inativa!';
     } else {
-        // Exibe uma mensagem de erro usando uma variável de sessão
-        session_start();
         $_SESSION['mensagem'] = 'Erro ao marcar a pergunta como inativa.';
     }
-    
-    // Redireciona para evitar a reenvio do formulário
     header("Location: quests.php");
     exit();
 }
@@ -49,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_pergunta'])) {
 if (isset($_POST['reativar_pergunta'])) {
     $id = $_POST['id'];
     $perguntasObj->reativarPergunta($id);
-    // Redireciona após reativação
-    echo "<script>window.location.href = 'quests.php';</script>";
+    header("Location: quests.php");
     exit();
 }
 
@@ -58,16 +55,30 @@ if (isset($_POST['reativar_pergunta'])) {
 if (isset($_POST['excluir_pergunta'])) {
     $id = $_POST['id'];
     $perguntasObj->excluirPerguntaPermanente($id);
-    // Redireciona após exclusão permanente
-    echo "<script>window.location.href = 'quests.php';</script>";
+    header("Location: quests.php");
     exit();
 }
 
-// Obtém a lista de perguntas ativas
-$perguntasAtivas = $perguntasObj->listarPerguntas();
+// Lida com inativação de todas as perguntas ativas
+if (isset($_POST['inativar_todas_perguntas'])) {
+    $perguntasObj->inativarTodasPerguntas();
+    $_SESSION['mensagem'] = 'Todas as perguntas inativadas com sucesso!';
+    header("Location: quests.php"); // Redireciona para a página quests.php
+    exit();
+}
 
-// Obtém a lista de perguntas inativas
-$perguntasInativas = $perguntasObj->listarPerguntasInativas();
+// Lida com exclusão permanente de todas as perguntas inativas
+if (isset($_POST['excluir_todas_perguntas'])) {
+    $perguntasObj->excluirTodasPerguntasInativas();
+    $_SESSION['mensagem'] = 'Todas as perguntas inativas foram excluídas.';
+    header("Location: quests.php"); // Redireciona para a página quests.php
+    exit();
+}
+
+// Obtém a lista de perguntas ativas filtrando pelo setor selecionado
+$setor_id = isset($_POST['setor_id']) ? $_POST['setor_id'] : null;
+$perguntasAtivas = $perguntasObj->listarPerguntas($setor_id);
+$perguntasInativas = $perguntasObj->listarPerguntasInativas($setor_id);
 
 // Verifica se existem perguntas inativas
 if (empty($perguntasInativas)) {
@@ -80,21 +91,6 @@ if (empty($perguntasInativas)) {
         // Se a tabela estiver vazia, reinicia o contador de IDs
         $sqlReset = "ALTER SEQUENCE perguntas_id_seq RESTART WITH 1;";
         $conn->exec($sqlReset); // Executa a instrução SQL para reiniciar a sequência
-    }
-}
-    // Lida com a inativação de todas as perguntas ativas
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['inativar_todas_perguntas'])) {
-            $perguntasObj->inativarTodasPerguntas();
-            header("Location: " . $_SERVER['PHP_SELF']); // Redireciona para a mesma página
-            exit; // Encerra o script após o redirecionamento
-        }
-
-    // Lida com a exclusão permanente de todas as perguntas inativas
-    if (isset($_POST['excluir_todas_perguntas'])) {
-        $perguntasObj->excluirTodasPerguntasInativas();
-        header("Location: " . $_SERVER['PHP_SELF']); // Redireciona para a mesma página
-        exit; // Encerra o script após o redirecionamento
     }
 }
 ?>
@@ -268,12 +264,19 @@ if (empty($perguntasInativas)) {
 <div class="container">
     <h1>Painel de Gerenciamento de Perguntas</h1>
 
-    <!-- Formulário para Adicionar Pergunta -->
-    <h2>Adicionar Nova Pergunta</h2>
-    <form method="POST" action="">
-        <input type="text" name="nova_pergunta" placeholder="Digite a nova pergunta" required>
-        <button type="submit" name="add_pergunta">Adicionar</button>
-    </form>
+<!-- Formulário para Adicionar Pergunta -->
+<h2>Adicionar Nova Pergunta</h2>
+<form method="POST" action="">
+    <input type="text" name="nova_pergunta" placeholder="Digite a nova pergunta" required>
+    <label for="setor">Selecione o Setor:</label>
+    <select name="setor_id" required>
+        <option value="">Escolha um setor</option>
+        <?php foreach ($setores as $setor): ?>
+            <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
+        <?php endforeach; ?>
+    </select>
+    <button type="submit" name="add_pergunta">Adicionar</button>
+</form>
 
     <hr>
 
@@ -326,25 +329,28 @@ if (empty($perguntasInativas)) {
     </div>
 </div>
 
-    <h2>Perguntas Inativas</h2>
-    <table>
+<h2>Perguntas Inativas</h2>
+<table border="1">
+    <thead>
         <tr>
             <th>ID</th>
             <th>Pergunta</th>
             <th>Ações</th>
         </tr>
+    </thead>
+    <tbody>
         <?php if (!empty($perguntasInativas)) : ?>
             <?php foreach ($perguntasInativas as $pergunta): ?>
             <tr>
-                <td><?php echo $pergunta['id']; ?></td>
-                <td><?php echo $pergunta['texto']; ?></td>
+                <td><?= $pergunta['id'] ?></td>
+                <td><?= $pergunta['texto'] ?></td>
                 <td>
                     <form method="POST" style="display: inline;">
-                        <input type="hidden" name="id" value="<?php echo $pergunta['id']; ?>">
+                        <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
                         <button type="submit" name="reativar_pergunta">Reativar</button>
                     </form>
                     <form method="POST" style="display: inline;">
-                        <input type="hidden" name="id" value="<?php echo $pergunta['id']; ?>">
+                        <input type="hidden" name="id" value="<?= $pergunta['id'] ?>">
                         <button type="submit" name="excluir_pergunta" class="btn btn-danger" onclick="return confirm('Tem certeza de que deseja excluir esta pergunta permanentemente?');">Excluir Permanentemente</button>
                     </form>
                 </td>
@@ -355,7 +361,8 @@ if (empty($perguntasInativas)) {
                 <td colspan="3">Nenhuma pergunta inativa encontrada.</td>
             </tr>
         <?php endif; ?>
-    </table>
+    </tbody>
+</table>
 
         <!-- Adicionar Botões para Ações em Massa -->
     <h2>Ações em Massa</h2>

@@ -1,21 +1,21 @@
 <?php
+session_start(); // Certifique-se de que isso está aqui antes de qualquer outra coisa
 require_once '../src/funcoes.php'; // Conectar com o Banco de Dados pelo funcoes.php
 
-// Obter as perguntas do banco de dados
-$perguntas = listarPerguntas();
-
-// Obter os setores do banco de dados
-$setores = listarSetores(); // Função para listar setores
+// Conectar ao banco de dados
+$conn = getConnection(); // Certifique-se de que esta função existe em funcoes.php para retornar a conexão
 
 // Captura o setor_id da sessão
-session_start();
-$setor_id = $_SESSION['setor_id'] ?? null;
+$setor_id = $_SESSION['setor_id'] ?? null; // Tenta obter o setor_id
 
 if ($setor_id === null) {
     // Redirecionar se setor_id não estiver definido
     header("Location: preConfSetTablet.php");
     exit;
 }
+
+// Obter as perguntas ativas
+$perguntasAtivas = obterPerguntasAtivas($conn, $setor_id); // Chama a função que retorna as perguntas ativas
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -53,15 +53,15 @@ if ($setor_id === null) {
             opacity: 0.6;
         }
         button[type="submit"] {
-        background: linear-gradient(to right, #002244, #0056a3); /* Cor de fundo do botão de envio */
-        color: white; /* Texto branco */
-        border: none; /* Sem borda */
-        border-radius: 5px; /* Borda arredondada */
-        padding: 10px 20px; /* Espaçamento interno */
-        font-size: 16px; /* Tamanho da fonte */
-        cursor: pointer; /* Cursor de ponteiro */
-        transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-}
+            background: linear-gradient(to right, #002244, #0056a3);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -70,8 +70,8 @@ if ($setor_id === null) {
     <form action="thanks.php" method="post" onsubmit="return validateForm()">
         <input type="hidden" name="setor_id" value="<?= $setor_id ?>">
 
-        <?php if (!empty($perguntas)): ?>
-            <?php foreach ($perguntas as $pergunta): ?>
+        <?php if (!empty($perguntasAtivas)): ?>
+            <?php foreach ($perguntasAtivas as $pergunta): ?>
                 <section>
                     <p><?= htmlspecialchars($pergunta['texto']) ?></p>
                     <input type="hidden" name="id_pergunta[]" value="<?= $pergunta['id'] ?>">
@@ -149,10 +149,10 @@ if ($setor_id === null) {
         for (let field of avaliacaoFields) {
             if (!field.value) {
                 alert("Por favor, selecione uma nota para todas as perguntas.");
-                return false; // Impede o envio do formulário
+                return false;
             }
         }
-        return true; // Permite o envio do formulário
+        return true;
     }
     </script>
 </body>

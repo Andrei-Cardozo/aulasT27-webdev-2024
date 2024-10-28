@@ -14,22 +14,29 @@ if (isset($_POST['add_setor'])) {
     $stmt = $conn->prepare("INSERT INTO setores (nome, ativo) VALUES (:nome, true)");
     $stmt->bindParam(':nome', $nomeSetor);
 
-    if ($stmt->execute()) {
-        $_SESSION['mensagem'] = 'Setor cadastrado com sucesso!';
-    } else {
-        $_SESSION['mensagem'] = 'Erro ao cadastrar setor.';
+    try {
+        // Tenta executar a inserção
+        if ($stmt->execute()) {
+            
+        }
+    } catch (PDOException $e) {
+        // Verifica se o erro é de violação de unicidade
+        if ($e->getCode() === '23505') { // Código de erro para violação de unicidade
+            $_SESSION['mensagem'] = 'Não foi possível criar o setor, pois já existe um com o mesmo nome.';
+        } else {
+            $_SESSION['mensagem'] = 'Erro ao cadastrar setor: ' . $e->getMessage();
+        }
     }
 
     // Redireciona para a mesma página para evitar que o usuário veja o alerta novamente ao recarregar
     header("Location: setores.php");
     exit();
 }
-
 // Inativar todos os setores
 if (isset($_POST['inativar_todos_setores'])) {
     $stmt = $conn->prepare("UPDATE setores SET ativo = false WHERE ativo = true");
     if ($stmt->execute()) {
-        $_SESSION['mensagem'] = "Todos os setores foram inativados.";
+        $_SESSION['mensagem'];
     } else {
         $_SESSION['mensagem'] = "Erro ao inativar setores.";
     }
@@ -41,25 +48,59 @@ if (isset($_POST['inativar_todos_setores'])) {
 if (isset($_POST['excluir_inativos_setores'])) {
     $stmt = $conn->prepare("DELETE FROM setores WHERE ativo = false");
     if ($stmt->execute()) {
-        $_SESSION['mensagem'] = "Setores inativos excluídos permanentemente.";
+        $_SESSION['mensagem'];
     } else {
         $_SESSION['mensagem'] = "Erro ao excluir setores inativos.";
     }
     header("Location: setores.php");
     exit();
 
-    // Lida com a inativação de um setor específico
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_setor'])) {
-    $id = $_POST['id']; // Obtém o ID do setor do formulário
-    $setoresObj->inativarSetor($id); // Função para inativar o setor
+        // Verificar quantas perguntas estão associadas ao setor
+        $sqlVerificarPerguntas = "SELECT COUNT(*) FROM perguntas WHERE setor_id = ?";
+        $stmtVerificar = $db->prepare($sqlVerificarPerguntas);
+        $stmtVerificar->bindValue(1, $setor_id, PDO::PARAM_INT); // Usando bindValue
+        $stmtVerificar->execute();
+        $countPerguntas = $stmtVerificar->fetchColumn();
     
-    // Redireciona após a inativação
-    header("Location: setores.php");
-    exit();
-}
+        if ($countPerguntas > 0) {
+            die("Não é possível excluir este setor, pois ele possui perguntas associadas.");
+        }
+    
+        // Se não houver perguntas, prosseguir com a exclusão do setor
+        $sqlExcluirSetor = "DELETE FROM setores WHERE id = ?";
+        $stmtExcluir = $db->prepare($sqlExcluirSetor);
+        $stmtExcluir->bindValue(1, $setor_id, PDO::PARAM_INT); // Usando bindValue
+        $stmtExcluir->execute();
+    
+        echo "Setor excluído com sucesso!";
+        
 
 // Lista de setores ativos
 $setoresAtivos = $setoresObj->listarSetoresAtivos();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_setor'])) {
+    $setor_id = $_POST['id']; // Use 'id' aqui, não 'setor_id'
+
+    if ($setor_id) {
+        try {
+            // Prepara a query para inativar o setor
+            $sqlInativar = "UPDATE setores SET ativo = false WHERE id = :setor_id";
+            $stmt = $conn->prepare($sqlInativar);
+            $stmt->bindParam(':setor_id', $setor_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $_SESSION['mensagem'];
+        } catch (PDOException $e) {
+            $_SESSION['mensagem'] = "Erro ao inativar setor: " . $e->getMessage();
+        }
+    } else {
+        $_SESSION['mensagem'] = "ID do setor não encontrado.";
+    }
+
+    // Redireciona para a mesma página para evitar que o usuário veja o alerta novamente ao recarregar
+    header("Location: setores.php");
+    exit();
 }
 
 // Consulta setores ativos e inativos
@@ -100,27 +141,46 @@ $setores_inativos = $conn->query("SELECT * FROM setores WHERE ativo = false")->f
 
         <!-- Setores Ativos -->
         <h2>Setores Ativos</h2>
-        <ul>
-            <?php foreach ($setores_ativos as $setor): ?>
-                <li class="setAtivos">
-                    <?php echo htmlspecialchars($setor['nome']); ?>
+        <table class="tabela-setores">
+    <thead>
+        <tr>
+            <th>Nome do Setor</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($setores_ativos as $setor): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($setor['nome']); ?></td>
+                <td>
                     <!-- Botão para Inativar Setor -->
                     <form action="setores.php" method="post" style="display: inline;">
                         <input type="hidden" name="id" value="<?= $setor['id']; ?>">
                         <button type="submit" name="delete_setor" onclick="return confirm('Tem certeza que deseja inativar este setor?');">Inativar</button>
                     </form>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
         <hr>
 
         <!-- Setores Inativos -->
         <h2>Setores Inativos</h2>
-        <ul>
-            <?php foreach ($setores_inativos as $setor): ?>
-                <li><?php echo htmlspecialchars($setor['nome']); ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <table class="tabela-setores">
+    <thead>
+        <tr>
+            <th>Nome do Setor Inativo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($setores_inativos as $setor): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($setor['nome']); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
                 <!-- Botões de Ações em Massa -->
                 <form method="post">
