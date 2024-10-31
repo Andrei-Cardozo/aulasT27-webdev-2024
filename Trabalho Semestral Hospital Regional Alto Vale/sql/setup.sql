@@ -76,4 +76,4 @@ ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ALTER TABLE respostas ADD COLUMN setor_id INT;  -- ou o tipo adequado
 
-
+ALTER TABLE perguntas ADD COLUMN setor_id INT REFERENCES setores(id);

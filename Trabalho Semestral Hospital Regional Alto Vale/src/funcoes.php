@@ -49,7 +49,7 @@ function adicionarPergunta($texto) {
 
 function listarSetores() {
     $conn = getConnection(); // Obter a conexão com o banco de dados
-    $sql = "SELECT * FROM setores WHERE ativo = TRUE"; // Filtrar setores ativos
+    $sql = "SELECT * FROM setores WHERE status = TRUE"; // Filtrar setores ativos
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os setores ativos
@@ -64,7 +64,7 @@ function obterPerguntasAtivas($conn, $setor_id) {
     $setor_id = (int)$setor_id;
 
     // Atualize a consulta para usar TRUE em vez de 1
-    $sql = "SELECT * FROM perguntas WHERE ativo = TRUE AND setor_id = :setor_id";
+    $sql = "SELECT * FROM perguntas WHERE status = TRUE AND setor_id = :setor_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':setor_id', $setor_id, PDO::PARAM_INT); // Assegure-se de que seja tratado como inteiro
     $stmt->execute();
