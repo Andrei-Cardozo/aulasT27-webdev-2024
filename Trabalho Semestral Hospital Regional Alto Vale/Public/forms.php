@@ -1,7 +1,7 @@
 <?php
 session_start(); // Certificar de que isso está aqui antes de qualquer outra coisa
-require_once '../src/funcoes.php'; // Conectar com o Banco de Dados pelo funcoes.php
-
+require_once '../src/db.php'; // Conectar com o Banco de Dados pelo funcoes.php
+require_once '../src/funcoes.php';
 // Conectar ao banco de dados
 $conn = getConnection(); // Certificar de que esta função existe em funcoes.php para retornar a conexão
 
@@ -10,7 +10,7 @@ $setor_id = $_SESSION['setor_id'] ?? null; // Tenta obter o setor_id
 
 if ($setor_id === null) {
     // Redirecionar se setor_id não estiver definido
-    header("Location: preConfSetTablet.php");
+    header("Location: ../preConfSetTablet.php");
     exit;
 }
 

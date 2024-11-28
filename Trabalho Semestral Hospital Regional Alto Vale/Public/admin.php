@@ -1,75 +1,54 @@
 <?php
-require_once '../src/db.php';
-require_once '../src/perguntas.php';
+require_once '../src/db.php'; 
+require_once '../src/perguntas.php'; 
 require_once '../src/funcoes.php';
+require_once '../config.php';
 session_start(); 
-
-// Definir o tempo de timeout (em segundos)
-$tempo_timeout = 600; // 10 minutos
-
-// Verificar se o usuário está logado
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    echo "<script>
-            alert('Você deve fazer o login primeiro!');
-            window.location.href = '../public/login.php';
-          </script>";
-    exit();
-}
-
-// Verificar o tempo da última atividade
-if (isset($_SESSION['last_activity'])) {
-    // Calcular o tempo desde a última atividade
-    $tempo_inativo = time() - $_SESSION['last_activity'];
-
-    // Se o tempo inativo exceder o tempo permitido
-    if ($tempo_inativo > $tempo_timeout) {
-        // Destruir a sessão e redirecionar para a página de login
-        session_unset();
-        session_destroy();
-        echo "<script>
-                alert('Sessão expirada! Faça login novamente.');
-                window.location.href = '../public/login.php';
-              </script>";
-        exit();
-    }
-}
-
-// Atualizar o tempo da última atividade para o tempo atual
-$_SESSION['last_activity'] = time();
-
-// Conecta ao banco de dados
-$conn = getConnection();
-
-if (!$conn) {
-    die("Erro ao conectar com o banco de dados.");
-
-    
-}
-
-// Consulta os 3 últimos feedbacks recebidos, considerando apenas os feedbacks não vazios
-$sqlFeedbacksRecentes = "SELECT 
-                            CASE
-                                WHEN r.feedback IS NULL OR r.feedback = '' THEN 'Sem Feedback'
-                                ELSE r.feedback
-                            END AS feedback,
-                            s.nome AS setor_nome 
-                        FROM respostas r 
-                        JOIN setores s ON r.setor_id = s.id 
-                        WHERE r.feedback IS NOT NULL AND r.feedback != '' 
-                        ORDER BY r.id DESC 
-                        LIMIT 3";
-$stmtFeedbacksRecentes = $conn->query($sqlFeedbacksRecentes);
-$feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
-
-// Buscar as últimas 3 notas
-$sqlNotasRecentes = "SELECT r.avaliacao AS nota, s.nome AS setor_nome 
-                     FROM respostas r 
-                     JOIN setores s ON r.setor_id = s.id 
-                     WHERE r.avaliacao IS NOT NULL 
-                     ORDER BY r.id DESC 
-                     LIMIT 3";
-$stmtNotasRecentes = $conn->query($sqlNotasRecentes);
-$notasRecentes = $stmtNotasRecentes->fetchAll(PDO::FETCH_ASSOC);
+// Definir o tempo de timeout (em segundos) 
+$tempo_timeout = 600; // 10 minutos 
+// Verificar se o usuário está logado 
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) { 
+    echo "<script> alert('Você deve fazer o login primeiro!'); 
+    window.location.href = '../public/login.php'; </script>";
+    exit(); 
+} 
+// Verificar o tempo da última atividade 
+if (isset($_SESSION['last_activity'])) { 
+    // Calcular o tempo desde a última atividade 
+    $tempo_inativo = time() - $_SESSION['last_activity']; 
+    // Se o tempo inativo exceder o tempo permitido 
+    if ($tempo_inativo > $tempo_timeout) { 
+        // Destruir a sessão e redirecionar para a página de login 
+        session_unset(); session_destroy(); 
+        echo "<script> alert('Sessão expirada! Faça login novamente.');
+        window.location.href = '../public/login.php';
+         </script>"; 
+         exit(); 
+        } 
+    } 
+    // Atualizar o tempo da última atividade para o tempo atual 
+    $_SESSION['last_activity'] = time(); 
+    // Conecta ao banco de dados 
+    $conn = getConnection(); 
+        if (!$conn) { 
+            die("Erro ao conectar com o banco de dados."); 
+        } 
+        // Consulta os 3 últimos feedbacks recebidos, considerando apenas os feedbacks não vazios 
+        $sqlFeedbacksRecentes = "SELECT CASE 
+            WHEN r.feedback IS NULL OR r.feedback = '' 
+            THEN 'Sem Feedback' 
+            ELSE r.feedback END AS feedback,
+             s.nome AS setor_nome 
+             FROM respostas r JOIN setores s ON
+              r.setor_id = s.id WHERE r.feedback IS NOT NULL AND
+               r.feedback != '' ORDER BY r.id DESC LIMIT 3"; $stmtFeedbacksRecentes = $conn->query($sqlFeedbacksRecentes); $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC); 
+               // Buscar as últimas 3 notas 
+               $sqlNotasRecentes = "SELECT r.avaliacao AS nota,
+                s.nome AS setor_nome FROM
+                 respostas r JOIN setores s ON
+                  r.setor_id = s.id WHERE r.avaliacao IS NOT NULL 
+                  ORDER BY r.id DESC LIMIT 3"; 
+                  $stmtNotasRecentes = $conn->query($sqlNotasRecentes); $notasRecentes = $stmtNotasRecentes->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -109,6 +88,9 @@ $notasRecentes = $stmtNotasRecentes->fetchAll(PDO::FETCH_ASSOC);
     </script>
 </head>
 <body>
+
+<h1>Bem-vindo ao Painel Administrativo, <?= $_SESSION['username'] ?>! <br> Tenha um ótimo trabalho hoje!</h1>
+
 <!--    Salvar esse código para reutilizar logo mais. Alterar o código daqui para baixo     -->
 
 <div class="navbar">
@@ -171,6 +153,12 @@ $notasRecentes = $stmtNotasRecentes->fetchAll(PDO::FETCH_ASSOC);
     <div class="box-answers">
         <a href="morePages/answers.php" class="answer-btn">
             <button>Dashboards das Respostas</button>
+        </a>
+    </div>
+
+    <div class="box-users">
+        <a href="morePages/users.php" class="users-btn">
+            <button>Gerenciamento de Usuários</button>
         </a>
     </div>
 </div>

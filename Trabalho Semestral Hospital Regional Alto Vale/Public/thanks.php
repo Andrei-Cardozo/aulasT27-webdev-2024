@@ -1,5 +1,6 @@
 <?php
 require_once '../src/funcoes.php'; // Inclui o arquivo de funções
+require_once '../src/db.php'; 
 
 $conn = getConnection();
 

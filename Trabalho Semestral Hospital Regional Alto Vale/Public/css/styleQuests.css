@@ -258,3 +258,60 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
     background-color: #e9ecef; /* Efeito hover nas linhas da tabela */
 }
+/* Media Queries para responsividade */ 
+ @media (max-width: 959px) { 
+    .sidebar { 
+        width: 5%; 
+        height: auto; 
+    } 
+    .menu li a span, .logout span { 
+        display: none; 
+    } 
+    .menu li a, .logout { 
+        justify-content: center; 
+    } 
+    .container { 
+        padding: 10px; 
+    } 
+    .containerSidebar { 
+        margin-top: 0; 
+    } 
+    .container, .sidebar { 
+        width: 90%; 
+        margin: 0 auto; 
+    } 
+    .menu li a, .logout { 
+        padding: 10px 5px; 
+    } 
+    .menu li a i, .logout i { 
+        font-size: 20px; 
+    } 
+} 
+@media (max-width: 600px) { 
+    .container { 
+        padding: 5px; 
+    } 
+    .sidebar { 
+        width: 100%; 
+        height: auto; 
+        flex-direction: row; 
+        justify-content: space-around; 
+    } 
+    .menu { 
+        flex-direction: row; 
+        margin-top: 0; 
+    } 
+    .menu li { 
+        margin: 0; 
+    } 
+    .menu li a { 
+        padding: 5px 2px; 
+        font-size: 14px; 
+    } 
+    .menu li a i { 
+        font-size: 18px; 
+    } 
+    .logout { 
+        padding: 5px 2px; 
+    } 
+}

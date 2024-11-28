@@ -1,20 +1,20 @@
 <?php
 session_start(); // Inicia a sessão
-require_once '../src/funcoes.php'; 
+require_once '../src/db.php'; 
 
-$db = getConnection(); 
+$conn = getConnection(); 
 
-if (!$db) {
+if (!$conn) {
     die("Erro ao conectar com o banco de dados.");
 }
 
 try {
     // Busca todos os setores
-    $setores = $db->query("SELECT * FROM setores")->fetchAll(PDO::FETCH_ASSOC);
+    $setores = $conn->query("SELECT * FROM setores")->fetchAll(PDO::FETCH_ASSOC);
     
     // Busca apenas tablets ativos
     $sqlTabletsAtivos = "SELECT * FROM tablets WHERE status = 'ativo'";
-    $stmt = $db->query($sqlTabletsAtivos);
+    $stmt = $conn->query($sqlTabletsAtivos);
     $tabletsAtivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Erro ao buscar dados: " . $e->getMessage();

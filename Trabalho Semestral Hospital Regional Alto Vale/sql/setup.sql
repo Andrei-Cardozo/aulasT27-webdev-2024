@@ -21,6 +21,13 @@ CREATE TABLE setores (
     ativo BOOLEAN DEFAULT TRUE
 );
 
+CREATE TABLE usuarios_admin (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+);
+
 CREATE TABLE IF NOT EXISTS tablets (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -29,6 +36,7 @@ CREATE TABLE IF NOT EXISTS tablets (
     setor_id INTEGER REFERENCES setores(id) ON DELETE CASCADE,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 --Alterações nas tabelas:
 

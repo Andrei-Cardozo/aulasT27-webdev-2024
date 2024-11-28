@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../src/funcoes.php';
+require_once '../../src/db.php';
 
 // Conecta ao banco de dados
 $conn = getConnection();
@@ -206,6 +206,106 @@ $avaliacoesPorSetor = $stmtAvaliacoesSetor->fetchAll(PDO::FETCH_ASSOC);
 .sidebar.active .logout{
     justify-content: center;
 }
+/* Responsividade */
+@media (max-width: 959px) {
+    .sidebar {
+        width: 5%;
+        height: auto;
+    }
+
+    .menu li a span,
+    .logout span {
+        display: none; /* Esconde o texto dos links */
+    }
+
+    .menu li a,
+    .logout {
+        justify-content: center;
+    }
+
+    .container {
+        margin-left: 0; /* Remove o deslocamento à esquerda */
+        padding: 10px;
+    }
+
+    .containerSidebar {
+        margin-top: 0;
+    }
+
+    .container, .sidebar {
+        width: 30%; /* Ajusta a largura do container */
+        margin: 0 auto;
+    }
+
+    .menu li a, .logout {
+        padding: 10px 5px;
+    }
+
+    .menu li a i, .logout i {
+        font-size: 20px;
+    }
+
+    .chart-container {
+        flex-direction: column; /* Alinha as imagens em coluna */
+        gap: 10px; /* Adiciona espaçamento entre as imagens */
+    }
+
+    .chart {
+        width: 100%; /* Faz as imagens ocuparem a largura total */
+    }
+}
+
+@media (max-width: 100px) {
+    .container {
+        padding: 5px;
+        flex-direction: column; /* Alinha os itens em coluna */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .menu {
+        flex-direction: row;
+        margin-top: 0;
+    }
+
+    .menu li {
+        margin: 0;
+    }
+
+    .menu li a {
+        padding: 5px 2px;
+        font-size: 14px;
+    }
+
+    .menu li a i {
+        font-size: 18px;
+    }
+
+    .logout {
+        padding: 5px 2px;
+        flex-direction: row; /* Alinha itens horizontalmente */
+    }
+
+    .containerSidebar {
+        flex-direction: row; /* Alinha os itens horizontalmente */
+        justify-content: space-between; /* Espaça itens */
+    }
+
+    .chart-container {
+        flex-direction: column; /* Alinha as imagens em coluna */
+        gap: 10px; /* Adiciona espaçamento entre as imagens */
+    }
+
+    .chart {
+        width: 100%; /* Faz as imagens ocuparem a largura total */
+    }
+}
+
     </style>
 </head>
 <body>

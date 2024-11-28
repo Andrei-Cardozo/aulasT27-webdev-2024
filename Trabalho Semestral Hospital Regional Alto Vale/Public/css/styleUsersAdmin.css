@@ -2,6 +2,7 @@
     font-family: 'ClarendonRegular';
     src: url('../fontes/Clarendon-Regular-Font.ttf') format('truetype');
 }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -30,10 +31,12 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
     padding: 10px;
     width: 50%;
     margin-right: 10px;
+    margin-bottom: 5px;
+    gap: 1.5px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -57,7 +60,7 @@ ul {
     padding: 0;
 }
 
-.setAtivos{
+.setAtivos {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
@@ -131,14 +134,17 @@ ul {
 .btn-danger:hover {
     background-color: #c82333;
 }
+
 .btn-alert {
     background-color: #218838;
 }
+
 .btn-alert:hover {
     background-color: #a79428;
 }
-.sidebar{
-    width: 15%;
+
+.sidebar {
+    width: 19%;
     height: 550px;
     display: flex;
     flex-direction: column;
@@ -151,11 +157,12 @@ ul {
     border-radius: 12px;
     margin-right: 10px;
 }
-.sidebar.active{
-    width: 5%;
+
+.sidebar.active {
+    width: 15%;
 }
 
-.containerSidebar{
+.containerSidebar {
     display: flex;
     flex-direction: column;
     gap: 5rem;
@@ -163,7 +170,8 @@ ul {
     margin-top: -80px;
     padding: 0;
 }
-.logo img{
+
+.logo img {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,15 +180,16 @@ ul {
     color: white;
 }
 
-.menu{
+.menu {
     list-style: none;
     display: flex;
     flex-direction: column;
     padding: 0 2px;
-    margin-top: -50px;
+    margin-top: 60px;
+    margin-left: 5px;
 }
 
-.menu li a{
+.menu li a {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -193,14 +202,16 @@ ul {
     transition: all .3s ease-in-out;
     margin-top: 30px;
 }
-.menu li a:hover{
+
+.menu li a:hover {
     background: rgba(255, 255, 255, .3);
 }
-.menu li a i{
+
+.menu li a i {
     font-size: 25px;
 }
 
-.logout{
+.logout {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -208,7 +219,8 @@ ul {
     padding: 0 10%;
     color: white;
 }
-.logout a{
+
+.logout a {
     text-decoration: none;
     list-style: none;
     color: white;
@@ -217,19 +229,22 @@ ul {
     text-transform: uppercase;
     transition: all .3s ease-in-out;
 }
-.logout a:hover{
+
+.logout a:hover {
     background-color: rgba(255, 255, 255, .3);
     cursor: pointer;
 }
+
 .sidebar.active .menu li a span,
-.sidebar.active .logout span{
+.sidebar.active .logout span {
     display: none;
 }
 
 .sidebar.active .menu li a,
-.sidebar.active .logout{
+.sidebar.active .logout {
     justify-content: center;
 }
+
 table.tabela-setores {
     width: 100%;
     border-collapse: collapse;
@@ -257,84 +272,4 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
     background-color: #e9ecef; /* Efeito hover nas linhas da tabela */
-}
-/* Responsividade */
-@media (max-width: 959px) {
-    .sidebar {
-        width: 5%;
-        height: auto;
-    }
-
-    .menu li a span,
-    .logout span {
-        display: none;
-    }
-
-    .menu li a,
-    .logout {
-        justify-content: center;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .containerSidebar {
-        margin-top: 0;
-    }
-
-    .container, .sidebar {
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .menu li a, .logout {
-        padding: 10px 5px;
-    }
-
-    .menu li a i, .logout i {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 100px) {
-    .container {
-        padding: 5px;
-        flex-direction: column; /* Alinha os itens em coluna */
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    .menu {
-        flex-direction: row;
-        margin-top: 0;
-    }
-
-    .menu li {
-        margin: 0;
-    }
-
-    .menu li a {
-        padding: 5px 2px;
-        font-size: 14px;
-    }
-
-    .menu li a i {
-        font-size: 18px;
-    }
-
-    .logout {
-        padding: 5px 2px;
-        flex-direction: row; /* Alinha itens horizontalmente */
-    }
-
-    .containerSidebar {
-        flex-direction: row; /* Alinha os itens horizontalmente */
-        justify-content: space-between; /* Espaça itens */
-    }
 }

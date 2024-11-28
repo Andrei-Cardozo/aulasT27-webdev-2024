@@ -45,6 +45,18 @@ body {
     padding-top: 20px; /* Adiciona um espaço no topo para a navbar */
 }
 
+h1 {
+    color: rgb(13, 74, 131);
+    font-family: 'ClarendonRegular', sans-serif;
+    font-size: 25px;
+    display: flex;
+    margin-top: 5%;
+    margin-left: 25%;
+    text-shadow: #fff;
+    -webkit-text-stroke: .5px black; 
+    justify-content: center;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -179,7 +191,7 @@ h2 {
     gap: 20px; /* Espaço entre os botões */
 }
 /* Estilos das caixas para manter o design e o efeito hover */
-.box-tablet, .box-quest, .box-answers, .box-localmap {
+.box-tablet, .box-quest, .box-answers, .box-localmap, .box-users {
     width: 200px; /* Largura da caixa */
     height: 50px; /* Altura da caixa */
     display: flex;
@@ -195,14 +207,15 @@ h2 {
     transition: transform 0.3s ease; /* Suavidade na transição */
 }
 
-.box-tablet:hover, .box-quest:hover, .box-answers:hover, .box-localmap:hover {
+
+.box-tablet:hover, .box-quest:hover, .box-answers:hover, .box-localmap:hover, .box-users:hover {
     transform: scale(1.1);
     background-size: 200% 100%;
     animation: gradient-animation 0.5s forwards;
 }
 
 /* Configuração para que o link ocupe toda a caixa */
-.box-tablet a, .box-quest a, .box-localmap a, .box-answers a {
+.box-tablet a, .box-quest a, .box-localmap a, .box-answers a, .box-users a {
     width: 100%;
     height: 100%;
     display: flex;
@@ -212,7 +225,7 @@ h2 {
 }
 
 /* Estilização do botão */
-.tablet-btn button, .quest-btn button, .answer-btn button, .localmap-btn button {
+.tablet-btn button, .quest-btn button, .answer-btn button, .localmap-btn button, .users-btn button{
     width: 100%;
     height: 100%;
     background: none;
@@ -237,7 +250,7 @@ h2 {
 
 }
 
-.tablet-btn button:hover, .quest-btn button:hover, .answer-btn button:hover, .localmap-btn button:hover {
+.tablet-btn button:hover, .quest-btn button:hover, .answer-btn button:hover, .localmap-btn button:hover, .users-btn button:hover  {
     cursor: pointer;
 }
 
@@ -305,6 +318,10 @@ h2 {
 
 @media (min-width: 779px) and (max-width: 959px) {
     /* Ajustes para tablets */
+    h3{
+        position: static;
+        margin-top: 25%;
+    }
     .sidebar, .sidebarNotas{
         margin-top: 15%;
         margin-right: 5%;
@@ -331,7 +348,7 @@ h2 {
         gap: 15px; /* Ajuste de espaçamento */
     }
 
-    .box-tablet, .box-quest, .box-answers, .box-localmap {
+    .box-tablet, .box-quest, .box-answers, .box-localmap, .box-users {
         font-size: 14px; /* Reduz tamanho da fonte */
         width: 105%; /* Largura total */
     }
@@ -378,7 +395,7 @@ h2 {
         padding: 0.8rem 0; /* Espaçamento reduzido */
     }
 
-    .box-tablet, .box-quest, .box-answers, .box-localmap {
+    .box-tablet, .box-quest, .box-answers, .box-localmap, .box-users {
         height: 45px; /* Botões mais compactos */
     }
 

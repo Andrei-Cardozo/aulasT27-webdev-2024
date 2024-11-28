@@ -1,23 +1,30 @@
 <?php
-// Iniciar a sessão
+require_once '../src/db.php'; // Certifique-se de que o caminho está correto
+require_once '../config.php'; // Inclui o arquivo de configuração
 session_start();
 
-// Verificar se o formulário foi submetido
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Definir as credenciais corretas
-    $correct_username = 'admin';
-    $correct_password = 'adminHRAV!';
-
-    // Obter o nome de usuário e a senha do formulário
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Verificar se as credenciais estão corretas
-    if ($username === $correct_username && $password === $correct_password) {
+    $conn = getConnection();
+    if (!$conn) {
+        die("Erro ao conectar com o banco de dados.");
+    }
+
+    // Consultar o banco de dados para o usuário fornecido
+    $sql = "SELECT * FROM usuarios_admin WHERE username = :username";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':username' => $username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Verificar se o usuário existe e se a senha está correta
+    if ($user && hash(HASH_ALGO, $password) === $user['password_hash']) {
         // Configurar a sessão de login
         $_SESSION['logged_in'] = true;
-        $_SESSION['last_activity'] = time(); // Iniciar o tempo da sessão
-
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        
         // Redirecionar para admin.php
         header('Location: ../public/admin.php');
         exit();
@@ -32,3 +39,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: ../public/login.php');
     exit();
 }
+?>

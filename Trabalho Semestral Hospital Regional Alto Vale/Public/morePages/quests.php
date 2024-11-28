@@ -1,5 +1,5 @@
 <?php
-require_once '../../src/funcoes.php';
+require_once '../../src/db.php';
 require_once '../../src/perguntas.php';
 
 // Obtém a conexão com o banco de dados
