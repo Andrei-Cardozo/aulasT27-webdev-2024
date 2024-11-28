@@ -7,7 +7,7 @@ class Perguntas {
     }
 
     public function adicionarPergunta($texto, $setor_id) {
-        $sql = "INSERT INTO perguntas (texto, setor_id, status) VALUES (:texto, :setor_id, true)";
+        $sql = "INSERT INTO perguntas (texto, setor_id, ativo) VALUES (:texto, :setor_id, true)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':texto', $texto);
         $stmt->bindParam(':setor_id', $setor_id);
@@ -16,7 +16,7 @@ class Perguntas {
 
     // Função para listar perguntas ativas
     public function listarPerguntas($setor_id = null) {
-        $sql = "SELECT * FROM perguntas WHERE status = TRUE";
+        $sql = "SELECT * FROM perguntas WHERE ativo = TRUE";
         if ($setor_id) {
             $sql .= " AND setor_id = :setor_id";
         }
@@ -55,7 +55,7 @@ class Perguntas {
 
     // Função para listar perguntas inativas
     public function listarPerguntasInativas() {
-        $sql = "SELECT * FROM perguntas WHERE status = FALSE ORDER BY id ASC"; // Perguntas inativas
+        $sql = "SELECT * FROM perguntas WHERE ativo = FALSE ORDER BY id ASC"; // Perguntas inativas
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +63,7 @@ class Perguntas {
 
     //Função para reativar perguntas
     public function reativarPergunta($id) {
-        $sql = 'UPDATE perguntas SET status = TRUE WHERE id = :id';
+        $sql = 'UPDATE perguntas SET ativo = TRUE WHERE id = :id';
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
@@ -77,13 +77,13 @@ class Perguntas {
         return $stmt->execute();
     }
     public function inativarTodasPerguntas() {
-        $sql = "UPDATE perguntas SET status = FALSE WHERE ativo = TRUE";
+        $sql = "UPDATE perguntas SET ativo = FALSE WHERE ativo = TRUE";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute();
     }
 
     public function excluirTodasPerguntasInativas() {
-        $sql = "DELETE FROM perguntas WHERE status = FALSE";
+        $sql = "DELETE FROM perguntas WHERE ativo = FALSE";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute();
     }

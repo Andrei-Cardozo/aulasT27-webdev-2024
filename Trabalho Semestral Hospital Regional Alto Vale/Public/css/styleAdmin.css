@@ -40,6 +40,7 @@ body {
     height: 100vh;
     display: flex;
     background-image: url(../images/BackgroundHospital.jpg);
+    background-attachment: fixed; 
     background-size: 100% 100%;
     padding-top: 20px; /* Adiciona um espaço no topo para a navbar */
 }
@@ -54,7 +55,7 @@ body {
 .container-box-btns {
     flex: 1; /* Permite que esta seção ocupe espaço disponível */
 }
-.sidebar {
+.sidebar{
     width: 300px; /* Largura da sidebar */
     margin-right: 20px; /* Espaço entre a sidebar e a borda direita */
     padding: 10px;
@@ -67,8 +68,21 @@ body {
     right: 20px; /* Define a distância da borda direita */
     font-family: 'ClarendonRegular', sans-serif;
 }
+.sidebarNotas{
+    width: 300px;
+    margin-right: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, .25);
+    border-radius: 12px 12px 12px 12px; /* Bordas arredondadas */
+    background: linear-gradient(to bottom, #002244, #0056a3); /* Cor de fundo da sidebar */
+    color: white;
+    position: fixed; /* Fixar a posição da sidebar */
+    top: 380px;
+    right: 20px;
+    font-family: 'ClarendonRegular', sans-serif;
+}
 
-.feedback-container {
+.feedback-container{
     margin-top: 0; /* Remove margens superiores */
 }
 table {
@@ -237,32 +251,147 @@ h2 {
 }
 
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
+    /* Navbar responsiva */
     .menu-btn {
-        display: block;
+        display: block; /* Exibe o botão de menu */
     }
 
     .menu {
-        display: none;
+        display: none; /* Esconde o menu em telas menores */
     }
 
     .navbar.active .menu {
-        display: flex;
-        flex-direction: column;
+        display: flex; /* Exibe o menu ao clicar no botão */
+        flex-direction: column; /* Menu em coluna */
         position: absolute;
-        top: 70px;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        align-items: center;
+        top: 60px; /* Posicionado abaixo da navbar */
+        left: 0;
+        width: 100%; /* Ocupa toda a largura */
+        background: rgba(0, 0, 0, 0.8); /* Fundo mais escuro */
+        padding: 10px 0; /* Espaçamento interno */
+        z-index: 1000; /* Sobrepõe outros elementos */
+    }
+
+    .menu li a {
+        width: 100%; /* Links ocupam toda a largura */
+        text-align: center; /* Texto centralizado */
+        padding: 1rem 0; /* Mais espaçamento para cliques */
+        font-size: 16px;
+    }
+
+    /* Ajustes gerais */
+    .container-box-btns {
+        flex-direction: column; /* Botões em coluna */
+        align-items: stretch; /* Esticam para ocupar largura */
+        gap: 10px; /* Espaçamento menor */
+        position: static; /* Remove posição fixa */
+        width: 90%; /* Ocupa quase toda a largura da tela */
+        margin: 20px auto; /* Centraliza na tela */
+    }
+
+    .sidebar, .sidebarNotas {
+        width: 80%; /* Sidebar ocupa 80% da largura */
+        margin: 20px auto; /* Centraliza na tela */
+        position: static; /* Remove fixação */
+    }
+
+    .box-tablet, .box-quest, .box-answers, .box-localmap {
+        width: 100%; /* Largura completa */
+        height: 50px; /* Altura ajustada */
+        font-size: 16px; /* Tamanho de fonte proporcional */
     }
 }
 
-@media (max-width: 780px) {
-    .sidebar {
-        width: 50%;
+@media (min-width: 779px) and (max-width: 959px) {
+    /* Ajustes para tablets */
+    .sidebar, .sidebarNotas{
+        margin-top: 15%;
+        margin-right: 5%;
+        width: 100%; /* Sidebar ocupa toda a largura */
+        height: 28%;
     }
 
-    .sidebar.active {
-        width: 20%;
+    .feedback-container {
+        width: 100%; /* Largura total, mas com limites de tamanho */
+        max-width: 400px; /* Limita a largura máxima */
+        height: 300px; /* Altura fixa */
+        max-height: 300px; /* Limita a altura máxima */
+        overflow: hidden; /* Evita que o conteúdo exceda o limite */
+        margin: 20px auto; /* Centraliza na tela */
+        box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+    }
+
+    .container-box-btns {
+        width: 60%; /* Largura total */
+        height: 200px;
+        margin-top: 20%;
+        margin-left: 5%;
+        margin-right: 5%;
+        gap: 15px; /* Ajuste de espaçamento */
+    }
+
+    .box-tablet, .box-quest, .box-answers, .box-localmap {
+        font-size: 14px; /* Reduz tamanho da fonte */
+        width: 105%; /* Largura total */
+    }
+
+    .navbar {
+        height: 50px; /* Navbar mais compacta */
+    }
+
+    .logoHRAV {
+        width: 40px; /* Reduz o tamanho do logo */
+    }
+}
+
+@media (min-width: 400px) and (max-width: 779px) {
+    /* Configuração para smartphones */
+
+    .sidebar, .sidebarNotas {
+        margin-top: 15%;
+        margin-right: 2%;
+        width: 40%; /* Sidebar ocupa toda a largura */
+        height: 33%;
+    }
+    .container-box-btns {
+        width: 60%; /* Largura total */
+        height: 200px;
+        margin-top: 20%;
+        margin-left: 5%;
+        margin-right: 9%;
+        gap: 15px; /* Ajuste de espaçamento */
+    }
+
+    .feedback-container, .notas-container {
+        width: 100%; /* Largura total, mas com limites de tamanho */
+        max-width: 400px; /* Limita a largura máxima */
+        height: 300px; /* Altura fixa */
+        max-height: 300px; /* Limita a altura máxima */
+        overflow: hidden; /* Evita que o conteúdo exceda o limite */
+        margin: 2px auto; /* Centraliza na tela */
+        box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+    }
+    
+    .menu li a {
+        font-size: 14px; /* Fonte menor */
+        padding: 0.8rem 0; /* Espaçamento reduzido */
+    }
+
+    .box-tablet, .box-quest, .box-answers, .box-localmap {
+        height: 45px; /* Botões mais compactos */
+    }
+
+    .navbar {
+        height: 45px;
+        padding: 0 0.5rem; /* Menor padding lateral */
+    }
+
+    .logoHRAV {
+        width: 30px; /* Logo ainda menor */
+    }
+
+    .sidebar {
+        font-size: 14px; /* Texto menor */
     }
 }

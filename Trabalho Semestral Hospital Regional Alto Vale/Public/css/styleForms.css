@@ -99,3 +99,83 @@ p{
     margin: 20px;
     gap: 15px;
 }
+/* Responsividade para tablets */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    #scale-container {
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .scale-number {
+        font-size: 18px;
+        padding: 6px;
+    }
+
+    .feedback-area {
+        padding: 10px;
+    }
+
+    textarea {
+        height: 80px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+/* Responsividade para telas menores, como smartphones */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+        flex-direction: column;
+        align-items: stretch; /* Garante que os elementos ocupem a largura total */
+    }
+
+    h2 {
+        font-size: 16px; /* Reduz o tamanho do título */
+        margin-bottom: 15px; /* Ajusta o espaçamento */
+    }
+
+    #scale-container {
+        flex-wrap: wrap;
+        gap: 5px; /* Menor espaçamento entre os números */
+        margin-top: 10px;
+        justify-content: center;
+    }
+
+    .scale-number {
+        font-size: 14px; /* Reduz o tamanho da escala */
+        padding: 4px; /* Reduz o padding */
+        width: 40px; /* Largura fixa para melhor alinhamento */
+        text-align: center;
+    }
+
+    .feedback-area {
+        padding: 8px; /* Menor padding para telas pequenas */
+        margin-top: 15px;
+    }
+
+    textarea {
+        height: 60px; /* Reduz a altura do textarea */
+        font-size: 14px; /* Fonte menor */
+    }
+
+    button[type="submit"] {
+        font-size: 12px;
+        padding: 8px 14px; /* Reduz o tamanho do botão */
+        margin-top: 10px; /* Adiciona espaçamento */
+    }
+
+    footer {
+        font-size: 0.8em;
+        margin-top: 15px; /* Menor margem acima do rodapé */
+        padding: 5px;
+        line-height: 1.4; /* Melhora a legibilidade em texto pequeno */
+    }
+}

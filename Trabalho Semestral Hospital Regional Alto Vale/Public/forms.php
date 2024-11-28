@@ -1,9 +1,9 @@
 <?php
-session_start(); // Certifique-se de que isso está aqui antes de qualquer outra coisa
+session_start(); // Certificar de que isso está aqui antes de qualquer outra coisa
 require_once '../src/funcoes.php'; // Conectar com o Banco de Dados pelo funcoes.php
 
 // Conectar ao banco de dados
-$conn = getConnection(); // Certifique-se de que esta função existe em funcoes.php para retornar a conexão
+$conn = getConnection(); // Certificar de que esta função existe em funcoes.php para retornar a conexão
 
 // Captura o setor_id da sessão
 $setor_id = $_SESSION['setor_id'] ?? null; // Tenta obter o setor_id
@@ -25,7 +25,7 @@ $perguntasAtivas = obterPerguntasAtivas($conn, $setor_id); // Chama a função q
     <title>Formulário de Avaliação</title>
     <link rel="stylesheet" href="css/styleForms.css">
     <style>
-        /* Seu CSS existente */
+        /* CSS dando conflito com o CSS já existente */
         .rating-buttons {
             display: flex;
             justify-content: center;

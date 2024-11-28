@@ -3,40 +3,37 @@ require_once '../src/funcoes.php'; // Inclui o arquivo de funções
 
 $conn = getConnection();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
-    // Verifica se os dados foram enviados e estão definidos
-    $id_perguntas = isset($_POST['id_pergunta']) ? $_POST['id_pergunta'] : [];
-    $avaliacoes = isset($_POST['avaliacao']) ? $_POST['avaliacao'] : [];
-    $feedbacks = isset($_POST['feedback']) ? $_POST['feedback'] : [];
-
-    // Captura do setor_id
-    $setor_id = isset($_POST['setor_id']) ? (int)$_POST['setor_id'] : null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $conn) {
+    // Inicializa arrays para os dados processados
+    $id_perguntas = filter_input(INPUT_POST, 'id_pergunta', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY) ?? [];
+    $avaliacoes = filter_input(INPUT_POST, 'avaliacao', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY) ?? [];
+    $feedbacks = filter_input(INPUT_POST, 'feedback', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY) ?? [];
+    $setor_id = filter_input(INPUT_POST, 'setor_id', FILTER_VALIDATE_INT);
 
     // Verifica se o setor_id é válido
-    if ($setor_id === null || $setor_id <= 0) {
+    if (!$setor_id || $setor_id <= 0) {
         die("Setor ID inválido.");
     }
 
-    // Insere as respostas no banco de dados
+    // Valida as respostas antes de inserir no banco
     for ($i = 0; $i < count($id_perguntas); $i++) {
-        $id_pergunta = $id_perguntas[$i];
-        $avaliacao = $avaliacoes[$i];
+        $id_pergunta = filter_var($id_perguntas[$i], FILTER_VALIDATE_INT);
+        $avaliacao = filter_var($avaliacoes[$i], FILTER_VALIDATE_INT);
+        $feedback = filter_var($feedbacks[$i] ?? null, FILTER_SANITIZE_STRING);
 
-        // Verifica se a avaliação é um inteiro válido entre 0 e 10
-        if (!is_numeric($avaliacao) || $avaliacao < 0 || $avaliacao > 10) {
-            continue; // Ignora esta iteração se a avaliação não for válida
+        // Ignora entradas inválidas
+        if (!$id_pergunta || $avaliacao === false || $avaliacao < 0 || $avaliacao > 10) {
+            continue;
         }
-        
-        // Verifica se o feedback é definido, se não estiver vazio, atribui
-        $feedback = isset($feedbacks[$i]) && !empty($feedbacks[$i]) ? $feedbacks[$i] : null;
 
-        // Prepara e executa a inserção
-        $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback, setor_id) VALUES (:id_pergunta, :avaliacao, :feedback, :setor_id)';
+        // Insere as respostas no banco de dados
+        $sql = 'INSERT INTO respostas (id_pergunta, avaliacao, feedback, setor_id) 
+                VALUES (:id_pergunta, :avaliacao, :feedback, :setor_id)';
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id_pergunta', $id_pergunta);
-        $stmt->bindParam(':avaliacao', $avaliacao);
-        $stmt->bindParam(':feedback', $feedback);
-        $stmt->bindParam(':setor_id', $setor_id); // Adicionando a vinculação do setor_id
+        $stmt->bindParam(':id_pergunta', $id_pergunta, PDO::PARAM_INT);
+        $stmt->bindParam(':avaliacao', $avaliacao, PDO::PARAM_INT);
+        $stmt->bindParam(':feedback', $feedback, PDO::PARAM_STR);
+        $stmt->bindParam(':setor_id', $setor_id, PDO::PARAM_INT);
         $stmt->execute();
     }
 
@@ -52,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $conn) {
     <title>Obrigado!</title>
     <link rel="stylesheet" href="css/styleThanks.css">
     <script>
-        // Função que redireciona para loading.php após 2 segundos
+        // Função que redireciona para loading.php após 2,5 segundos
         setTimeout(function() {
             window.location.href = 'loading.php';
-        }, 2500); // 2500 milissegundos = 2,5 segundos
+        }, 2500);
     </script>
 </head>
 <body>

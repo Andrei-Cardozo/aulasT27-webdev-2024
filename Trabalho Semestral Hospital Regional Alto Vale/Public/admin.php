@@ -46,15 +46,31 @@ if (!$conn) {
     
 }
 
-// Consulta os 3 últimos feedbacks
-$sqlFeedbacksRecentes = "SELECT r.feedback, s.nome AS setor_nome 
-                         FROM respostas r 
-                         JOIN setores s ON r.setor_id = s.id 
-                         WHERE r.feedback IS NOT NULL 
-                         ORDER BY r.id DESC 
-                         LIMIT 3";
+// Consulta os 3 últimos feedbacks recebidos, considerando apenas os feedbacks não vazios
+$sqlFeedbacksRecentes = "SELECT 
+                            CASE
+                                WHEN r.feedback IS NULL OR r.feedback = '' THEN 'Sem Feedback'
+                                ELSE r.feedback
+                            END AS feedback,
+                            s.nome AS setor_nome 
+                        FROM respostas r 
+                        JOIN setores s ON r.setor_id = s.id 
+                        WHERE r.feedback IS NOT NULL AND r.feedback != '' 
+                        ORDER BY r.id DESC 
+                        LIMIT 3";
 $stmtFeedbacksRecentes = $conn->query($sqlFeedbacksRecentes);
 $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
+
+// Buscar as últimas 3 notas
+$sqlNotasRecentes = "SELECT r.avaliacao AS nota, s.nome AS setor_nome 
+                     FROM respostas r 
+                     JOIN setores s ON r.setor_id = s.id 
+                     WHERE r.avaliacao IS NOT NULL 
+                     ORDER BY r.id DESC 
+                     LIMIT 3";
+$stmtNotasRecentes = $conn->query($sqlNotasRecentes);
+$notasRecentes = $stmtNotasRecentes->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +126,7 @@ $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fa-solid fa-bell"></i>
                 <span>Notificações</span>
             </a></li>
-            <li><a href="">
+            <li><a href="#">
                 <i class="fa-solid fa-gear"></i>
                 <span>Configurações</span>
             </a></li>
@@ -159,7 +175,7 @@ $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<div class="sidebar">
+    <div class="sidebar">
         <div class="feedback-container">
             <h2>Últimos Feedbacks Recebidos</h2>
             <table>
@@ -187,6 +203,37 @@ $feedbacksRecentes = $stmtFeedbacksRecentes->fetchAll(PDO::FETCH_ASSOC);
             </table>
         </div>
     </div>
+
+    <div class="sidebarNotas">
+    <div class="notas-container">
+        <h2>Últimas Notas Recebidas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nota</th>
+                    <th>Setor</th>
+                    <hr>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (count($notasRecentes) > 0): ?>
+                    <?php foreach ($notasRecentes as $nota): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($nota['nota']) ?></td>
+                            <td><?= htmlspecialchars($nota['setor_nome']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Nenhuma nota disponível.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 
 <script src="js/admin.js"></script>
 

@@ -118,3 +118,50 @@ button a{
     text-decoration: none;
     color: #000000;
 }
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    .wrapper {
+        width: 90%; /* Reduz a largura para telas menores */
+        padding: 20px 25px; /* Ajusta o padding */
+        border-radius: 50px; /* Suaviza o layout */
+    }
+
+    .wrapper h1 {
+        font-size: 28px; /* Reduz o tamanho da fonte do título */
+    }
+
+    .input-box input {
+        font-size: 14px; /* Ajusta o tamanho da fonte para o input */
+        padding: 15px 40px 15px 15px; /* Ajusta o padding do input */
+    }
+
+    .wrapper .btn {
+        height: 40px; /* Reduz a altura do botão */
+        font-size: 14px; /* Reduz o tamanho da fonte do botão */
+    }
+
+    .wrapper .remember-forgot {
+        flex-direction: column; /* Organiza em coluna */
+        align-items: center; /* Centraliza */
+        text-align: center; /* Texto centralizado */
+    }
+
+    .remember-forgot a {
+        margin-top: 10px; /* Espaçamento entre itens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper h1 {
+        font-size: 24px; /* Reduz ainda mais o título */
+    }
+
+    .input-box input {
+        font-size: 12px; /* Ajusta a fonte do input */
+    }
+
+    .wrapper .btn {
+        font-size: 12px; /* Ajusta a fonte do botão */
+        height: 35px; /* Reduz a altura */
+    }
+}
